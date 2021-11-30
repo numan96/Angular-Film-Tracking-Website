@@ -1,13 +1,14 @@
 <div class="navigation">
-  <form class="example-form">
-    <mat-form-field appearance="outline">
+  <div class="searchDiv">
+  <form>
+    <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="The Departed">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+      <input matInput>
+    </mat-form-field><button type="submit" mat-mini-fab class="searchBtn"><mat-icon>search</mat-icon></button>
   </form>
+</div>
   <img class="logo" src="assets/img/FLIXIBLE.png">
 <button  mat-button class="nav active">View Films</button>
-<button  mat-button class="nav">My Lists</button>
-<button  mat-button class="navicon"><mat-icon>person</mat-icon></button>
+<button  mat-button class="nav" *ngIf="isLoggedIn">My Lists</button>
+<button mat-fab *ngIf="isLoggedIn"><mat-icon>person</mat-icon></button>
 </div>
