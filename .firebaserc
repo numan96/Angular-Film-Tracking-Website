@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ng-flixible": {
+      "hosting": {
+        "flixible": [
+          "ng-flixible"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ng-flixible"
+  }
+}

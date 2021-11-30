@@ -107,6 +107,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "flixible:build:production",
+            "firebaseProject": "ng-flixible",
+            "firebaseHostingSite": "ng-flixible"
+          }
         }
       }
     }
