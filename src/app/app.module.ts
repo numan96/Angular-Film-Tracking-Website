@@ -12,9 +12,18 @@ import { MatListModule } from '@angular/material/list';
 import { NavComponent } from './shared/nav/nav.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { FilmsEffects } from './viewfilms/store/films.effects';
+import * as fromViewFilms from './viewfilms/store/films.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, NavComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -25,6 +34,10 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    StoreModule.forRoot({ films: fromViewFilms.filmsReducer }),
+    EffectsModule.forRoot([FilmsEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

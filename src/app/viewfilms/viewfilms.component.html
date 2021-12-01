@@ -1,0 +1,25 @@
+
+<mat-button-toggle-group name="filterFilms" aria-label="Filter Films">
+  <mat-button-toggle value="most_popular">Most Popular</mat-button-toggle>
+  <mat-button-toggle value="now_playing">Now Playing</mat-button-toggle>
+  <mat-button-toggle value="upcoming">Upcoming</mat-button-toggle>
+  <mat-button-toggle value="top_rated">Top Rated</mat-button-toggle>
+</mat-button-toggle-group>
+<div class="row">
+
+
+
+    <app-viewfilms-item
+    *ngFor="let filmElement of films; let i = index"
+    [filmItemArray]="filmElement"
+   [index]="i" ></app-viewfilms-item>
+
+
+
+  </div>
+
+
+
+
+
+
