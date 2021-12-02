@@ -9,11 +9,13 @@ routerLinkActive="active"
 
 
     <div class="column">
-<a style="cursor: pointer;">
+
+<a style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
 <mat-card class="example-card">
    <mat-card-actions align="start">
     <button mat-fab class="gradient"><mat-icon>add</mat-icon></button>
-  <mat-card-header>
+
+    <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
     <mat-card-subtitle>{{ filmItem.release_date }}</mat-card-subtitle>
 </mat-card-header>
@@ -34,6 +36,9 @@ routerLinkActive="active"
   </mat-card-content>
 
 </mat-card>
-</a></div>
-<!-- </a> --></div>
+</a>
+</div>
+
+
+</div>
 </div>

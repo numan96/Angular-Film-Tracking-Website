@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ViewfilmsDetailComponent } from './viewfilms-detail/viewfilms-detail.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatButtonToggleModule,
     StoreModule.forFeature('films', fromViewFilms.filmsReducer),
   ],
-  declarations: [ViewfilmsComponent, ViewfilmsItemComponent],
+  declarations: [ViewfilmsComponent, ViewfilmsItemComponent, ViewfilmsDetailComponent],
 })
 export class ViewfilmsModule {}

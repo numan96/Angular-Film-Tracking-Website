@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
   //change to false state.
-  isLoggedIn: Boolean = true;
+  isLoggedIn: Boolean = false;
 
   constructor() {}
 

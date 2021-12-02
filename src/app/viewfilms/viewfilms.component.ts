@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Films } from './films.model';
 import * as fromApp from '../store/app.reducer';
 import { ViewfilmsService } from './viewfilms.service';
+import * as FilmsActions from './store/films.actions';
 @Component({
   selector: 'app-viewfilms',
   templateUrl: './viewfilms.component.html',
@@ -30,6 +31,27 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
         this.films = films;
       });
   }
+
+  popularFilms() {
+    this.films = [];
+    this.store.dispatch(FilmsActions.FetchPopularFilms());
+  }
+
+  nowPlayingFilms() {
+    this.films = [];
+    this.store.dispatch(FilmsActions.FetchNowPlayingFilms());
+  }
+
+  upcomingFilms() {
+    this.films = [];
+    this.store.dispatch(FilmsActions.FetchUpcomingFilms());
+  }
+
+  topRatedFilms() {
+    this.films = [];
+    this.store.dispatch(FilmsActions.FetchTopRatedFilms());
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
