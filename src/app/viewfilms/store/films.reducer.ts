@@ -17,7 +17,6 @@ const _filmsReducer = createReducer(
     films: [...action.films],
   }))
 );
-
 export function filmsReducer(state: State | undefined, action: Action) {
   return _filmsReducer(state, action);
 }

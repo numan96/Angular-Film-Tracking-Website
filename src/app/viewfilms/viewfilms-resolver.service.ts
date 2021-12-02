@@ -27,7 +27,7 @@ export class ViewFilmsResolverService implements Resolve<{ films: Films[] }> {
       }),
       switchMap((films) => {
         if (films.length === 0) {
-          this.store.dispatch(FilmsActions.FetchFilms());
+          this.store.dispatch(FilmsActions.FetchPopularFilms());
           return this.actions$.pipe(ofType(FilmsActions.SetFilms), take(1));
         } else {
           return of({ films });
