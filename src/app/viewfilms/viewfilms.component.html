@@ -14,8 +14,7 @@
     <app-viewfilms-item
     *ngFor="let filmElement of films; let i = index"
     [filmItemArray]="filmElement"
-   [index]="i" ></app-viewfilms-item>
-
+   [index]="filmElement.id" ></app-viewfilms-item>
 
 
   </div>

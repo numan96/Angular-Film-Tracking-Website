@@ -40,16 +40,19 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
   nowPlayingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchNowPlayingFilms());
+    console.log(this.films);
   }
 
   upcomingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchUpcomingFilms());
+    console.log(this.films);
   }
 
   topRatedFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchTopRatedFilms());
+    console.log(this.films);
   }
 
   ngOnDestroy() {

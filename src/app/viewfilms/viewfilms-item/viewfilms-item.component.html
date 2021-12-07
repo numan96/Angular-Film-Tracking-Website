@@ -13,7 +13,7 @@ routerLinkActive="active"
 <a style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
 <mat-card class="example-card">
    <mat-card-actions align="start">
-    <button mat-fab class="gradient"><mat-icon>add</mat-icon></button>
+    <button mat-fab matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button>
 
     <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>

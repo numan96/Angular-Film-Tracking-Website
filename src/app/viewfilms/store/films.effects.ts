@@ -13,6 +13,7 @@ import { ViewfilmsService } from '../viewfilms.service';
 @Injectable()
 export class FilmsEffects {
   webUrl = 'https://image.tmdb.org/t/p/w500';
+  value1: number;
   //maybe can change which api it uses based on if its most popular, now playing, top rated etc.
   fetchPopularFilms$ = createEffect(() =>
     this.actions$.pipe(
@@ -122,6 +123,7 @@ export class FilmsEffects {
           .pipe(
             map((data) =>
               data['results'].map((obj) => {
+                console.log(data);
                 return {
                   original_title: obj.original_title,
                   id: obj.id,
@@ -138,6 +140,40 @@ export class FilmsEffects {
       }),
       map((films) => {
         return FilmsActions.SetFilms({ films });
+      })
+    )
+  );
+
+  fetchSingleFilm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FilmsActions.FetchSingleFilm),
+      withLatestFrom(this.store.select('films')),
+      switchMap((filterFilm) => {
+        return this.http
+          .get<Films>(
+            'https://api.themoviedb.org/3/movie/' +
+              filterFilm[0].id +
+              '?api_key=3bf7fc56ee01b081668e7df85a3d2155&language=en-US&append_to_response=videos,images'
+          )
+          .pipe(
+            map((data) => {
+              return {
+                original_title: data.original_title,
+                id: data.id,
+                genres: data.genres,
+                overview: data.overview,
+                popularity: data.popularity,
+                release_date: data.release_date,
+                poster_path: this.webUrl.concat('', data.poster_path),
+                vote_average: data.vote_average * 10,
+                videos: data.videos['results'],
+              };
+            })
+          );
+      }),
+      map((film) => {
+        console.log('Film Set:', film);
+        return FilmsActions.SetFilm({ film });
       })
     )
   );

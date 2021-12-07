@@ -20,9 +20,10 @@
 
   font-size: medium
 .mat-card-subtitle
-  float: right
   font-weight: bold
   color: #7AFFE3
+
+.mat-card-content
 
 ::ng-deep .mat-progress-spinner.over69 circle, .mat-spinner.over69 circle
   stroke: #00ff22
@@ -30,8 +31,8 @@
 ::ng-deep .mat-progress-spinner.under70 circle, .mat-spinner.under70 circle
   stroke: #ad9300
 
-  ::ng-deep .mat-progress-spinner.below41 circle, .mat-spinner.below41 circle
-    stroke: #ff0000
+::ng-deep .mat-progress-spinner.below41 circle, .mat-spinner.below41 circle
+  stroke: #ff0000
 .column
   flex: 0 0 30%
   margin: 1%
@@ -51,4 +52,8 @@ p.ratingText
   background-color: #252E42
 
 .mat-fab:hover
-  background-color: #0f141d
+  background-color: #b9dfdc
+
+::ng-deep .tooltip-fav
+  background: #b9dfdc
+  color: black !important

@@ -1,45 +1,57 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img
-      [src]="film.poster_path"
-      alt="film.original_title"
-      class="img-responsive"
-      style="max-height: 300px;">
-  </div>
+<ng-container *ngIf="film">
+
+  <div class="row">
+
+
+
+
+    <mat-card class="example-card">
+      <mat-card-actions align="start">
+        <div class="nav-actions">
+        <button mat-button class="nav" routerLink="..">Back</button>
+        <button mat-fab   matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button></div>
+      </mat-card-actions>
+       <mat-card-header>
+       <mat-card-title>{{ film.original_title }}</mat-card-title>
+       <mat-card-subtitle>{{ film.release_date }}</mat-card-subtitle>
+
+       <div class="mat-chips">
+       <mat-chip-list aria-label="Genres List"  *ngFor="let genre of film.genres">
+        <mat-chip> {{ genre.name }}</mat-chip>
+
+      </mat-chip-list>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ film.original_title }}</h1>
-  </div>
+<div class="ratings">
+      <p class="ratingText">RATING</p>
+      <p *ngIf="film.vote_average != 0">
+            <mat-progress-spinner class="over69" *ngIf="film.vote_average > 69"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+            <mat-progress-spinner class="under70" *ngIf="film.vote_average < 70 "  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+            <mat-progress-spinner class="below41" *ngIf="film.vote_average < 41"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+          </p>
+      <p class="ratingText">{{film.vote_average}}%</p>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <div
-      class="btn-group"
-      appDropdown>
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle">
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-      </ul>
-    </div>
-  </div>
+   </mat-card-header>
+
+     <mat-card-content>
+
+    <div class="overview">  <p>  {{ film.overview }}</p></div>
+
+<img mat-card-image [src]="film.poster_path" alt="Poster for {{film.original_title}}">
+     </mat-card-content>
+<div class="video" *ngFor="let video of film.videos">
+
+  <div class="video" *ngIf="video.type === 'Trailer'">
+
+
+        <youtube-player  videoId="{{video.key}}"></youtube-player>
+
+
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    {{ film.overview }}
-  </div>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let genre of film.genres">
-        {{ genre }}
-      </li>
-    </ul>
-  </div>
+   </mat-card>
+
+
+
+
 </div>
+</ng-container>

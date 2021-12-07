@@ -11,7 +11,7 @@ export class Films {
 
   public release_date?: Date;
 
-  public video?: Array<any>;
+  public videos?: any;
 
   public poster_path?: string;
 
@@ -24,7 +24,7 @@ export class Films {
     overview?: string,
     popularity?: number,
     release_date?: Date,
-    video?: Array<any>,
+    videos?: any,
     poster_path?: string,
     vote_average?: number
   ) {
@@ -34,7 +34,7 @@ export class Films {
     this.overview = overview;
     this.popularity = popularity;
     this.release_date = release_date;
-    this.video = video;
+    this.videos = videos;
     this.poster_path = poster_path;
     this.vote_average = vote_average;
   }

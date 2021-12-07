@@ -1,9 +1,13 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, switchMap } from 'rxjs/operators';
+import { concat } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import { Films } from '../films.model';
+import * as FilmsActions from '../store/films.actions';
+import { selectFeautre } from '../store/films.reducer';
 @Component({
   selector: 'app-viewfilms-detail',
   templateUrl: './viewfilms-detail.component.html',
@@ -12,6 +16,7 @@ import { Films } from '../films.model';
 export class ViewfilmsDetailComponent implements OnInit {
   film: Films;
   id: number;
+  apiLoaded = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,25 +25,39 @@ export class ViewfilmsDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(
+    concat(
+      this.route.params.pipe(
+        take(1),
         map((params) => {
+          console.log('pparams:', params);
+          this.id = params['id'];
           return +params['id'];
         }),
-        switchMap((id) => {
-          this.id = id;
-          return this.store.select('films');
-        }),
-        map((filmsState) => {
-          return filmsState.films.find((film, index) => {
-            return index === this.id;
-          });
+        tap((film) => {
+          console.log('film:', film);
+
+          if (!this.film) {
+            console.log('Fetch Single Film');
+            this.store.dispatch(FilmsActions.FetchSingleFilm({ id: this.id }));
+            console.log('select', selectFeautre);
+          }
+        })
+      ),
+      this.store.select('films').pipe(
+        map((filmState) => {
+          console.log('Film state:', filmState);
+          return (this.film = filmState['film']);
         })
       )
-      .subscribe((film) => {
-        this.film = film;
-      });
+    ).subscribe();
 
-    console.log(this.film);
+    if (!this.apiLoaded) {
+      // This code loads the IFrame Player API code asynchronously, according to the instructions at
+      // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+      this.apiLoaded = true;
+    }
   }
 }
