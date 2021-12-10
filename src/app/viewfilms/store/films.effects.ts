@@ -153,7 +153,7 @@ export class FilmsEffects {
           .get<Films>(
             'https://api.themoviedb.org/3/movie/' +
               filterFilm[0].id +
-              '?api_key=3bf7fc56ee01b081668e7df85a3d2155&language=en-US&append_to_response=videos,images'
+              '?api_key=3bf7fc56ee01b081668e7df85a3d2155&language=en-US&append_to_response=videos,images,credits'
           )
           .pipe(
             map((data) => {
@@ -167,6 +167,7 @@ export class FilmsEffects {
                 poster_path: this.webUrl.concat('', data.poster_path),
                 vote_average: data.vote_average * 10,
                 videos: data.videos['results'],
+                credits: data.credits['cast'],
               };
             })
           );
@@ -174,6 +175,42 @@ export class FilmsEffects {
       map((film) => {
         console.log('Film Set:', film);
         return FilmsActions.SetFilm({ film });
+      })
+    )
+  );
+
+  searchFilms$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FilmsActions.SearchFilms),
+      withLatestFrom(this.store.select('films')),
+      switchMap((filmSearch) => {
+        return this.http
+          .get<Films[]>(
+            'https://api.themoviedb.org/3/search/movie?api_key=3bf7fc56ee01b081668e7df85a3d2155&query=' +
+              filmSearch[0].filmName +
+              '&language=en-US&append_to_response=videos'
+          )
+          .pipe(
+            map((data) =>
+              data['results'].map((obj) => {
+                console.log(filmSearch[0].filmName);
+                return {
+                  original_title: obj.original_title,
+                  id: obj.id,
+                  genres: obj.genre_ids,
+                  overview: obj.overview,
+                  popularity: obj.popularity,
+                  release_date: obj.release_date,
+                  poster_path: this.webUrl.concat('', obj.poster_path),
+                  vote_average: obj.vote_average * 10,
+                };
+              })
+            )
+          );
+      }),
+      map((films) => {
+        console.log('search film:', films);
+        return FilmsActions.SetFilms({ films });
       })
     )
   );

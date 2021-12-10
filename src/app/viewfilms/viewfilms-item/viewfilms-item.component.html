@@ -11,9 +11,9 @@ routerLinkActive="active"
     <div class="column">
 
 <a style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
    <mat-card-actions align="start">
-    <button mat-fab matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button>
+    <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button>
 
     <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
@@ -25,11 +25,12 @@ routerLinkActive="active"
   <img mat-card-image [src]="filmItem.poster_path" alt="Poster for {{filmItem.original_title}}">
 
   <mat-card-content>
-    <p class="ratingText">RATING</p>
-<p *ngIf="filmItem.vote_average != 0">
+    <p class="ratingText">Rating</p>
+<p>
       <mat-progress-spinner class="over69" *ngIf="filmItem.vote_average > 69"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-      <mat-progress-spinner class="under70" *ngIf="filmItem.vote_average < 70 "  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-      <mat-progress-spinner class="below41" *ngIf="filmItem.vote_average < 41"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
+      <mat-progress-spinner class="under70" *ngIf="filmItem.vote_average > 41 && filmItem.vote_average < 70"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
+      <mat-progress-spinner class="below41" *ngIf="filmItem.vote_average < 41 && filmItem.vote_average > 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
+      <mat-progress-spinner class="below41" *ngIf="filmItem.vote_average === 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
     </p>
 <p class="ratingText">{{filmItem.vote_average}}%</p>
 

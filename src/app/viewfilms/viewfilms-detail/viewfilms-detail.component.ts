@@ -17,6 +17,7 @@ export class ViewfilmsDetailComponent implements OnInit {
   film: Films;
   id: number;
   apiLoaded = false;
+  isLoggedIn: Boolean = true;
 
   constructor(
     private route: ActivatedRoute,

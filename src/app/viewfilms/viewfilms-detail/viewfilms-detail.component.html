@@ -9,45 +9,80 @@
       <mat-card-actions align="start">
         <div class="nav-actions">
         <button mat-button class="nav" routerLink="..">Back</button>
-        <button mat-fab   matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button></div>
+
+        <!-- BUTTON DOESNT SHOW IF LOGGED IN - SAME ON FAVOURITES FOR HOMEPAGE -->
+        <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button></div>
       </mat-card-actions>
        <mat-card-header>
+
+
+
        <mat-card-title>{{ film.original_title }}</mat-card-title>
+ <!-- SEPERATE RELEASE DATE AND HAVE A HEADER: RELEASE DATE -->
        <mat-card-subtitle>{{ film.release_date }}</mat-card-subtitle>
 
        <div class="mat-chips">
+        <p class="ratingText">Genres</p>
        <mat-chip-list aria-label="Genres List"  *ngFor="let genre of film.genres">
         <mat-chip> {{ genre.name }}</mat-chip>
 
       </mat-chip-list>
 </div>
 <div class="ratings">
-      <p class="ratingText">RATING</p>
-      <p *ngIf="film.vote_average != 0">
-            <mat-progress-spinner class="over69" *ngIf="film.vote_average > 69"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
-            <mat-progress-spinner class="under70" *ngIf="film.vote_average < 70 "  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
-            <mat-progress-spinner class="below41" *ngIf="film.vote_average < 41"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
-          </p>
+      <p class="ratingText">Rating</p>
+      <p>
+        <mat-progress-spinner class="over69" *ngIf="film.vote_average > 69"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+        <mat-progress-spinner class="under70" *ngIf="film.vote_average > 41 && film.vote_average < 70"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+        <mat-progress-spinner class="below41" *ngIf="film.vote_average < 41 && film.vote_average > 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+        <mat-progress-spinner class="below41" *ngIf="film.vote_average === 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{film.vote_average}}"></mat-progress-spinner>
+      </p>
       <p class="ratingText">{{film.vote_average}}%</p>
 </div>
    </mat-card-header>
 
      <mat-card-content>
-
+      <p class="ratingText">Plot</p>
     <div class="overview">  <p>  {{ film.overview }}</p></div>
 
 <img mat-card-image [src]="film.poster_path" alt="Poster for {{film.original_title}}">
-     </mat-card-content>
+
+<p class="ratingText">Cast</p>
+<div class="cast-row" >
+
+<ng-container *ngFor="let cast of film.credits.slice(0,6)">
+<mat-card class="cast-card" *ngIf="cast.profile_path">
+
+   <mat-card-header>
+   <mat-card-title class="castTxt">{{cast.name}}</mat-card-title>
+   <mat-card-subtitle class="castTxt">{{ cast.character }}</mat-card-subtitle>
+</mat-card-header>
+
+ <img class="castPic" src="https://image.tmdb.org/t/p/w500{{cast.profile_path}}" alt="Poster for {{cast.name}}">
+
+
+</mat-card>
+</ng-container>
+</div>
+
+<p class="ratingText">Videos</p>
 <div class="video" *ngFor="let video of film.videos">
 
-  <div class="video" *ngIf="video.type === 'Trailer'">
+
+
+
+
+  <!-- MARGIN AND HAVE VIDEOS NEXT TO EACH OTHER SAME ROW. -->
+
+  <div class="row-videos">
+  <div class="video" *ngIf="video.type === 'Trailer' && video.site === 'YouTube'">
 
 
         <youtube-player  videoId="{{video.key}}"></youtube-player>
 
 
 </div>
-</div>
+</div>  </div>
+</mat-card-content>
    </mat-card>
 
 

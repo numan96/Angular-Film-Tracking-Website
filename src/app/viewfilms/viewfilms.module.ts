@@ -13,6 +13,7 @@ import { ViewfilmsDetailComponent } from './viewfilms-detail/viewfilms-detail.co
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     YouTubePlayerModule,
     MatChipsModule,
     MatTooltipModule,
+    MatGridListModule,
   ],
   declarations: [
     ViewfilmsComponent,

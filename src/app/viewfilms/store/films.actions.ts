@@ -13,6 +13,11 @@ export const FetchUpcomingFilms = createAction('[Films] Fetch Upcoming Films');
 
 export const FetchTopRatedFilms = createAction('[Films] Fetch Top Rated Films');
 
+export const SearchFilms = createAction(
+  '[Films] Search Films',
+  props<{ filmName: string }>()
+);
+
 export const FetchSingleFilm = createAction(
   '[Films] Fetch A Single Film',
 

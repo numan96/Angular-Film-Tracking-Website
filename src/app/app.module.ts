@@ -19,8 +19,10 @@ import * as fromViewFilms from './viewfilms/store/films.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './shared/footer/footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [AppComponent, NavComponent],
+  declarations: [AppComponent, NavComponent, FooterComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({
       films: fromViewFilms.filmsReducer,
     }),

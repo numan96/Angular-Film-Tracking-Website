@@ -8,6 +8,11 @@ $bgcolor: #2F3B52
   align-content: center
   align-items: center
   align-self: center
+.row-videos
+  display: flex
+  flex: 0 0 100%
+  flex-wrap: wrap
+  justify-content: space-between
 .nav
   float: left
   display: flex
@@ -23,17 +28,40 @@ $bgcolor: #2F3B52
   margin-left: auto
   margin-right: auto
   vertical-align: middle
+
+.cast-card
+  flex: 0 0 30%
+  padding: 1%
+  margin: 1%
+  width: 100%
+  background-color: #252E42
+  color: white
+  display: block
+  margin-left: auto
+  margin-right: auto
+  vertical-align: middle
+
 .mat-card-title
   text-align: center
   margin-left: auto
   margin-right: auto
   font-size: xx-large
+.mat-card-title.castTxt
+  text-align: center
+  font-size: x-large
 
 .mat-card-subtitle
   font-weight: bold
   font-size: large
   color: #7AFFE3
   text-align: center
+
+.mat-card-subtitle.castTxt
+  color: #7AFFE3
+  text-align: center
+  font-weight: 500
+  font-size: medium
+
 ::ng-deep .mat-progress-spinner.over69 circle, .mat-spinner.over69 circle
   stroke: #00ff22
 
@@ -48,6 +76,14 @@ $bgcolor: #2F3B52
   float: left
   margin-left: auto
   margin-right: auto
+
+.castPic
+  width: 30%
+  height: 50%
+  display: block
+  margin-left: auto
+  margin-right: auto
+  align-content: center
 
 .mat-progress-spinner
   margin-left: auto
@@ -72,8 +108,8 @@ p.ratingText
   margin: 5px
   float: right
 .video
-  float: right
-  margin: 3%
+  margin-left: auto
+  margin-right: auto
   align-self: center
   align-items: center
   align-content: center
@@ -112,3 +148,23 @@ p.ratingText
 ::ng-deep .tooltip-fav
   background: #b9dfdc
   color: black !important
+
+.tileStyle
+  float: right
+  width: 75%
+  flex-direction: row
+  display: flex
+  justify-content: space-evenly
+
+::ng-deep .mat-grid-tile-header
+  color: black !important
+  text-align: center !important
+  opacity: 70%
+
+.cast-row
+  display: flex
+  flex-wrap: wrap
+  align-content: center
+  align-items: center
+  align-self: center
+  justify-content: space-between

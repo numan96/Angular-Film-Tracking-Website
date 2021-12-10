@@ -3,11 +3,15 @@
   <form>
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput>
+      <input matInput id="filmName" type="search" [formControl]="filmName" (keyup)="onKey(filmName.value)">
     </mat-form-field><button type="submit" mat-mini-fab class="searchBtn"><mat-icon>search</mat-icon></button>
   </form>
 </div>
   <img class="logo" style="cursor: pointer;" routerLink="/" src="assets/img/FLIXIBLE.png">
+
+
+
+  <!-- ADD MAT-MENU TO DROPDOWN MENU ON MOBILE -->
 <button  mat-button class="nav" routerLinkActive="active" routerLink="/films" [routerLinkActiveOptions]="{ exact: true }">View Films</button>
 <button  mat-button class="nav" routerLinkActive="active" *ngIf="!isLoggedIn" routerLink="/auth">Login/Signup</button>
 <button  mat-button class="nav" routerLinkActive="active" *ngIf="isLoggedIn">My Lists</button>
