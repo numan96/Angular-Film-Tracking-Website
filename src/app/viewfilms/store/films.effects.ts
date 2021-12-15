@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
@@ -166,8 +167,10 @@ export class FilmsEffects {
                 release_date: data.release_date,
                 poster_path: this.webUrl.concat('', data.poster_path),
                 vote_average: data.vote_average * 10,
+                runtime: this.calculateRuntime(data.runtime),
                 videos: data.videos['results'],
                 credits: data.credits['cast'],
+                crew: data.credits['crew'],
               };
             })
           );
@@ -178,6 +181,12 @@ export class FilmsEffects {
       })
     )
   );
+
+  calculateRuntime(runtime: number) {
+    var hours = Math.floor(runtime / 60);
+    var minutes = runtime % 60;
+    return hours + 'h ' + minutes + 'm';
+  }
 
   searchFilms$ = createEffect(() =>
     this.actions$.pipe(
@@ -210,7 +219,7 @@ export class FilmsEffects {
       }),
       map((films) => {
         console.log('search film:', films);
-        return FilmsActions.SetFilms({ films });
+        return FilmsActions.SetSearchFilms({ films });
       })
     )
   );

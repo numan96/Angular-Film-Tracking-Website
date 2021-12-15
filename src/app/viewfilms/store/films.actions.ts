@@ -33,3 +33,8 @@ export const SetFilms = createAction(
   '[Films] Set Films',
   props<{ films: Films[] }>()
 );
+
+export const SetSearchFilms = createAction(
+  '[Films] Set Searched Films',
+  props<{ films: Films[] }>()
+);

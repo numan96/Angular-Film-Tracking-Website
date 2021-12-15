@@ -14,7 +14,7 @@ routerLinkActive="active"
 <mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
    <mat-card-actions align="start">
     <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button>
-
+<!-- CHANGE BUTTON TO YELLOW STAR AND SELECTED WHEN FAVOURITED -->
     <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
     <mat-card-subtitle>{{ filmItem.release_date }}</mat-card-subtitle>

@@ -6,11 +6,13 @@ import * as FilmsActions from './films.actions';
 export interface State {
   films: Films[];
   film: Films;
+  searchFilms: Films[];
 }
 
 export const initialState: State = {
   films: [],
   film: null,
+  searchFilms: [],
 };
 
 const _filmsReducer = createReducer(
@@ -19,11 +21,18 @@ const _filmsReducer = createReducer(
     ...state,
     films: [...action.films],
   })),
-  on(FilmsActions.SetFilm, (state, action) => ({ ...state, film: action.film }))
+  on(FilmsActions.SetFilm, (state, action) => ({
+    ...state,
+    film: action.film,
+  })),
+  on(FilmsActions.SetSearchFilms, (state, action) => ({
+    ...state,
+    searchFilms: [...action.films],
+  }))
 );
 
 export function filmsReducer(state: State | undefined, action: Action) {
   return _filmsReducer(state, action);
 }
 
-export const selectFeautre = (state: State) => state.film;
+export const selectFeature = (state: State) => state.film;

@@ -7,7 +7,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import { Films } from '../films.model';
 import * as FilmsActions from '../store/films.actions';
-import { selectFeautre } from '../store/films.reducer';
+import { selectFeature } from '../store/films.reducer';
 @Component({
   selector: 'app-viewfilms-detail',
   templateUrl: './viewfilms-detail.component.html',
@@ -40,7 +40,7 @@ export class ViewfilmsDetailComponent implements OnInit {
           if (!this.film) {
             console.log('Fetch Single Film');
             this.store.dispatch(FilmsActions.FetchSingleFilm({ id: this.id }));
-            console.log('select', selectFeautre);
+            console.log('select', selectFeature);
           }
         })
       ),

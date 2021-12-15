@@ -17,7 +17,12 @@ export class Films {
 
   public vote_average?: number;
 
+  public runtime?: any;
+
   public credits?: any;
+
+  public crew?: any;
+
   constructor(
     original_title?: string,
     id?: number,
@@ -28,7 +33,9 @@ export class Films {
     videos?: any,
     poster_path?: string,
     vote_average?: number,
-    credits?: any
+    runtime?: any,
+    credits?: any,
+    crew?: any
   ) {
     this.original_title = original_title;
     this.id = id;
@@ -39,6 +46,8 @@ export class Films {
     this.videos = videos;
     this.poster_path = poster_path;
     this.vote_average = vote_average;
+    this.runtime = runtime;
     this.credits = credits;
+    this.crew = crew;
   }
 }

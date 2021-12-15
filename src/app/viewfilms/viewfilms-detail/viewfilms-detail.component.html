@@ -19,7 +19,12 @@
 
        <mat-card-title>{{ film.original_title }}</mat-card-title>
  <!-- SEPERATE RELEASE DATE AND HAVE A HEADER: RELEASE DATE -->
-       <mat-card-subtitle>{{ film.release_date }}</mat-card-subtitle>
+
+ <div>
+  <p class="ratingText">Release Date</p>
+ <p class="director">{{ film.release_date | date:'longDate'}}</p>
+ </div>
+
 
        <div class="mat-chips">
         <p class="ratingText">Genres</p>
@@ -38,12 +43,30 @@
       </p>
       <p class="ratingText">{{film.vote_average}}%</p>
 </div>
+ <div>
+<p class="ratingText">Director</p>
+<div *ngFor="let crew of film.crew" >
+
+<div *ngIf="crew.job === 'Director'">
+
+  <p class="director">{{crew.name}}</p>
+
+</div>
+</div>
+</div>
+
    </mat-card-header>
 
      <mat-card-content>
-      <p class="ratingText">Plot</p>
-    <div class="overview">  <p>  {{ film.overview }}</p></div>
 
+      <p class="ratingText" *ngIf="film.overview">Plot</p>
+    <div class="overview">  <p>{{ film.overview }}</p></div>
+
+
+<div *ngIf="film.runtime != '0h 0m'">
+    <p class="ratingText">Runtime</p>
+    <div class="overview">  <p>{{ film.runtime }}</p></div>
+  </div>
 <img mat-card-image [src]="film.poster_path" alt="Poster for {{film.original_title}}">
 
 <p class="ratingText">Cast</p>
