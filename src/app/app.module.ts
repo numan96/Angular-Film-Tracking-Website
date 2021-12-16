@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent],
   imports: [
@@ -38,6 +40,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatButtonModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatMenuModule,
     StoreModule.forRoot({
       films: fromViewFilms.filmsReducer,
     }),

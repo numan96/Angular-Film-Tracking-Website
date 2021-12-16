@@ -10,7 +10,6 @@ export class ViewfilmsItemComponent implements OnInit {
   @Input('filmItemArray') filmItem: Films;
   @Input() index: number;
   isLoggedIn: Boolean = true;
-
   constructor() {}
 
   ngOnInit() {}

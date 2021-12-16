@@ -13,8 +13,14 @@ routerLinkActive="active"
 <a style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
 <mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
    <mat-card-actions align="start">
-    <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="right" aria-label="Button that shows favourites text"><mat-icon>add</mat-icon></button>
-<!-- CHANGE BUTTON TO YELLOW STAR AND SELECTED WHEN FAVOURITED -->
+
+
+    <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+      <mat-icon>favorite_border</mat-icon></button>
+    <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
+      <mat-icon>visibility_off</mat-icon></button>
+
+<!-- CHANGE BUTTON TO 'FAVOURITE' MAT ICON WHEN FAVOURITED, {{favourite_border/favourite}} - database entry saves as favourite_border or favourite? DESELECT WILL REMOVE FROM FAV LIST AND CHANGE BACK TO FAVOURITE_BORDER -->
     <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
     <mat-card-subtitle>{{ filmItem.release_date }}</mat-card-subtitle>

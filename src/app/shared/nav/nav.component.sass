@@ -13,8 +13,14 @@ $activecolor: #7AFFE3
   margin: 1%
   color: $primarycolor
   background-color: $bgcolor
+::ng-deep .nav-dropdown
+  color: $primarycolor
+  background: $bgcolor
 .mat-icon
   line-height: 10px
+
+.mat-icon.dropdown
+  line-height: 25px
 .mat-fab
   float: right
   margin: 1%
@@ -24,6 +30,8 @@ $activecolor: #7AFFE3
   background-color: $bgcolor
 .active
   color: $activecolor
+.logout
+  color: white
 .logo
   display: block
   margin-left: auto
@@ -75,3 +83,7 @@ $activecolor: #7AFFE3
 .mat-option:hover
   color: $activecolor
   background: #252E42
+p
+  color: white
+  font-weight: bold
+  margin: 0 0 0px

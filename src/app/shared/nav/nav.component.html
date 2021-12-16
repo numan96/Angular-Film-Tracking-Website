@@ -14,13 +14,30 @@
     </mat-form-field>
   </form>
 </div>
+
+
   <img class="logo" style="cursor: pointer;" routerLink="/" src="assets/img/FLIXIBLE.png">
 
 
+<p class="welcomeUser" *ngIf="isLoggedIn">Hello, Numan</p>
+
+
+<button mat-fab *ngIf="isLoggedIn" [matMenuTriggerFor]="account"><mat-icon>person</mat-icon></button>
+<mat-menu #account="matMenu" class="nav-dropdown" xPosition="before">
+<button   mat-menu-item class="nav-dropdown" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn">My Lists</button>
+<button  mat-menu-item class="nav-dropdown" routerLinkActive="active" routerLink="/favourites">Logout</button>
+</mat-menu>
+
+<mat-menu #menu="matMenu" class="nav-dropdown" xPosition="after">
+  <button  mat-menu-item class="nav-dropdown" routerLinkActive="active" routerLink="/favourites">Favourites</button>
+  <button mat-menu-item class="nav-dropdown" routerLinkActive="active" routerLink="/watched">Watched</button>
+</mat-menu>
 
   <!-- ADD MAT-MENU TO DROPDOWN MENU ON MOBILE -->
 <button  mat-button class="nav" routerLinkActive="active" routerLink="/films" [routerLinkActiveOptions]="{ exact: true }">View Films</button>
 <button  mat-button class="nav" routerLinkActive="active" *ngIf="!isLoggedIn" routerLink="/auth">Login/Signup</button>
-<button  mat-button class="nav" routerLinkActive="active" *ngIf="isLoggedIn">My Lists</button>
-<button mat-fab *ngIf="isLoggedIn"><mat-icon>person</mat-icon></button>
+
+
+
+
 </div>
