@@ -23,9 +23,10 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
+import { SearchComponent } from './shared/search/search.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, FooterComponent],
+  declarations: [AppComponent, NavComponent, FooterComponent, SearchComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
