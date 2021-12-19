@@ -1,20 +1,6 @@
 <div class="navigation">
-  <div class="searchDiv">
-  <form>
-    <mat-form-field appearance="fill">
-      <mat-label>Search for a Film</mat-label>
-      <input matInput id="filmName" [matAutocomplete]="auto" type="search" [formControl]="filmName"
-      (keyup)="onKey(filmName.value)">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="40%" >
-        <!-- maybe change panelwidth on mobile to 100% (full screen width) -->
-        <mat-option *ngFor="let option of films " [value]="option.original_title" (click)="toFilm(option.id)">
-          {{option.original_title}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
-</div>
 
+<app-search></app-search>
 
   <img class="logo" style="cursor: pointer;" routerLink="/" src="assets/img/FLIXIBLE.png">
 

@@ -9,7 +9,7 @@ import { Films } from '../films.model';
 export class ViewfilmsItemComponent implements OnInit {
   @Input('filmItemArray') filmItem: Films;
   @Input() index: number;
-  isLoggedIn: Boolean = true;
+  isLoggedIn: Boolean = false;
   constructor() {}
 
   ngOnInit() {}

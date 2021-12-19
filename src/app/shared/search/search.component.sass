@@ -1,0 +1,46 @@
+$primarycolor: white
+$bgcolor: #2F3B52
+$activecolor: #7AFFE3
+
+.searchBtn
+  background-color: $bgcolor
+  height: 30px
+.searchDiv
+  display: inline-flex
+  float: left
+  margin: 1%
+  color: $primarycolor
+
+::ng-deep .mat-form-field
+  .mat-input-element
+    color: $activecolor
+    font-weight: bold
+  .mat-form-field-label
+    color: $primarycolor
+  .mat-form-field-underline
+    background-color: $primarycolor
+  .mat-form-field-ripple
+    background-color: $primarycolor
+::ng-deep .mat-form-field.mat-focused
+  .mat-form-field-label
+    color: $primarycolor
+    .mat-form-field-ripple
+      background-color: $primarycolor
+    .mat-input-element
+      color: $activecolor
+    .mat-form-field-underline
+      color: $primarycolor
+::ng-deep .mat-form-field.mat-selected
+  .mat-form-field-underline
+    color: $primarycolor !important
+
+.mat-option.mat-active
+  color: $primarycolor
+  background-color: #252E42
+.mat-option
+  color: $primarycolor
+  background-color: $bgcolor
+  font-weight: bold
+.mat-option:hover
+  color: $activecolor
+  background: #252E42
