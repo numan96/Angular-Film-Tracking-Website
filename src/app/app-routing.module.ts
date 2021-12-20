@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./viewfilms/viewfilms.module').then((m) => m.ViewfilmsModule),
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({

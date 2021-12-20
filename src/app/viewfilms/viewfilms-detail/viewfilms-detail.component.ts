@@ -2,7 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { concat } from 'rxjs';
+import { concat, Subscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import { Films } from '../films.model';
@@ -18,6 +18,9 @@ export class ViewfilmsDetailComponent implements OnInit {
   id: number;
   apiLoaded = false;
   isLoggedIn: Boolean = true;
+  favourited = false;
+  watched = false;
+  private userSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +29,13 @@ export class ViewfilmsDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userSub = this.store
+      .select('auth')
+      .pipe(map((authState) => authState.user))
+      .subscribe((user) => {
+        this.isLoggedIn = !!user;
+      });
+
     concat(
       this.route.params.pipe(
         take(1),

@@ -1,0 +1,46 @@
+$primarycolor: white
+$bgcolor: #2F3B52
+$activecolor: #7AFFE3
+
+.authDiv
+  display: flex
+  margin-left: auto
+  margin-right: auto
+  align-content: center
+  align-items: center
+  align-self: center
+  justify-content: space-evenly
+  height: 60%
+  width: 100%
+.column
+
+::ng-deep .mat-form-field
+  .mat-input-element
+    color: $activecolor
+    font-weight: bold
+  .mat-form-field-label
+    color: $primarycolor
+  .mat-form-field-outline
+    color: $bgcolor
+  .mat-form-field-ripple
+    background-color: $primarycolor
+
+::ng-deep .mat-form-field.mat-focused
+  .mat-form-field-label
+    color: $primarycolor
+    .mat-form-field-ripple
+      background-color: $primarycolor
+    .mat-input-element
+      color: $activecolor
+    .mat-form-field-outline
+      color: $primarycolor
+
+::ng-deep .mat-form-field.mat-selected
+  .mat-form-field-outline
+    color: $primarycolor !important
+
+.formBtn
+  height: 40px
+  color: $primarycolor
+  background-color: $bgcolor
+  margin-right: 8px

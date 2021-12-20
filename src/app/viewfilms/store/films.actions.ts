@@ -2,7 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { MovieData } from '../data.model';
 import { Films } from '../films.model';
 
-//Maybe rename to fetch most popular then add most recent, upcoming etc.
 export const FetchPopularFilms = createAction('[Films] Fetch Popular Films');
 
 export const FetchNowPlayingFilms = createAction(

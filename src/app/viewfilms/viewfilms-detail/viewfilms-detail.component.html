@@ -10,12 +10,12 @@
         <div class="nav-actions">
         <button mat-button class="nav" routerLink="..">Back</button>
 
-        <!-- BUTTON DOESNT SHOW IF LOGGED IN - SAME ON FAVOURITES FOR HOMEPAGE -->
-        <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
-          <mat-icon>favorite_border</mat-icon></button>
+        <!-- MAT-ICON-BUTTON? -->
+        <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="favourited = !favourited" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+          <mat-icon>{{favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
 
-          <button mat-fab *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
-            <mat-icon>visibility_off</mat-icon></button></div>
+          <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched = !watched" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
+            <mat-icon>{{watched ? 'playlist_add_check' : 'playlist_add'}}</mat-icon></button></div>
       </mat-card-actions>
        <mat-card-header>
 
