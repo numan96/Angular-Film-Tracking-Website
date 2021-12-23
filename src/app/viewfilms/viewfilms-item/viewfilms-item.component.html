@@ -11,16 +11,16 @@ routerLinkActive="active"
     <div class="column">
 
 
-<mat-card [routerLink]="[index]" class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
+<mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
    <mat-card-actions align="start">
 
-
-    <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="favourited = !favourited" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
-      <mat-icon>{{favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
+<!-- snackbar when adding to fav/watch lsit -->
+    <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite()" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+      <mat-icon>{{filmItem.favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
     <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched = !watched" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
       <mat-icon>{{watched ? 'playlist_add_check' : 'playlist_add'}}</mat-icon></button>
+   <button mat-icon-button class="navigate" [routerLink]="[index]" matTooltipClass="tooltip-fav" matTooltip="Go to Details" matTooltipPosition="above" aria-label="Button that shows details text"><mat-icon>navigate_next</mat-icon></button>
 
-<!-- CHANGE BUTTON TO 'FAVOURITE' MAT ICON WHEN FAVOURITED, {{favourite_border/favourite}} - database entry saves as favourite_border or favourite? DESELECT WILL REMOVE FROM FAV LIST AND CHANGE BACK TO FAVOURITE_BORDER -->
     <mat-card-header>
     <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
     <mat-card-subtitle>{{ filmItem.release_date }}</mat-card-subtitle>

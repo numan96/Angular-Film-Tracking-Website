@@ -23,8 +23,9 @@ export class NavComponent implements OnInit, OnDestroy {
       .pipe(map((authState) => authState.user))
       .subscribe((user) => {
         this.isLoggedIn = !!user;
-
-        this.userName = user.email;
+        if (user != null) {
+          this.userName = user.email;
+        }
       });
   }
 

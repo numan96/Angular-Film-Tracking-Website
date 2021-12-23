@@ -1,10 +1,11 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { concat, Subscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
+import { MovieData } from '../data.model';
 import { Films } from '../films.model';
 import * as FilmsActions from '../store/films.actions';
 import { selectFeature } from '../store/films.reducer';
@@ -13,15 +14,19 @@ import { selectFeature } from '../store/films.reducer';
   templateUrl: './viewfilms-detail.component.html',
   styleUrls: ['./viewfilms-detail.component.sass'],
 })
-export class ViewfilmsDetailComponent implements OnInit {
+export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
   film: Films;
   id: number;
   apiLoaded = false;
   isLoggedIn: Boolean = true;
+
+  //favourited subscribed to from store
+
+  userId: string;
   favourited = false;
   watched = false;
   private userSub: Subscription;
-
+  private favouriteSub: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,6 +39,15 @@ export class ViewfilmsDetailComponent implements OnInit {
       .pipe(map((authState) => authState.user))
       .subscribe((user) => {
         this.isLoggedIn = !!user;
+        this.userId = user.id;
+        console.log(this.userId);
+      });
+
+    this.favouriteSub = this.store
+      .select('films')
+      .pipe(map((filmState) => filmState.favourites))
+      .subscribe((favourite) => {
+        this.favourited = favourite;
       });
 
     concat(
@@ -50,13 +64,15 @@ export class ViewfilmsDetailComponent implements OnInit {
           if (!this.film) {
             console.log('Fetch Single Film');
             this.store.dispatch(FilmsActions.FetchSingleFilm({ id: this.id }));
-            console.log('select', selectFeature);
+            console.log('Fetch Favourite');
+            this.store.dispatch(
+              FilmsActions.fetchInitialFavourite({ filmId: this.id })
+            );
           }
         })
       ),
       this.store.select('films').pipe(
         map((filmState) => {
-          console.log('Film state:', filmState);
           return (this.film = filmState['film']);
         })
       )
@@ -70,5 +86,23 @@ export class ViewfilmsDetailComponent implements OnInit {
       document.body.appendChild(tag);
       this.apiLoaded = true;
     }
+  }
+
+  onFavourite() {
+    this.favourited = !this.favourited;
+    const id = this.id;
+    const favourite = this.favourited;
+    this.store.dispatch(
+      FilmsActions.setAsFavourite({ filmId: id, favourite: favourite })
+    );
+
+    //boolean changes in the API with the film ID and favourite boolean, boolean sent to firebase:
+    //userId sent aswell to match up with Db.
+
+    //PUT REQUEST TO FAVOURITE, DELETE REQUEST IF DESELECTING
+  }
+
+  ngOnDestroy(): void {
+    this.favouriteSub.unsubscribe();
   }
 }

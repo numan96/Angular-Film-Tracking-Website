@@ -37,6 +37,7 @@ export class FilmsEffects {
                   release_date: obj.release_date,
                   poster_path: this.webUrl.concat('', obj.poster_path),
                   vote_average: obj.vote_average * 10,
+                  favourited: false,
                 };
               })
             )
@@ -220,6 +221,76 @@ export class FilmsEffects {
       map((films) => {
         console.log('search film:', films);
         return FilmsActions.SetSearchFilms({ films });
+      })
+    )
+  );
+
+  setAsFavourite$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(FilmsActions.setAsFavourite),
+        withLatestFrom(this.store.select('auth')),
+        switchMap(([data, favouriteData]) => {
+          return this.http.put(
+            'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites' +
+              '/' +
+              favouriteData.user['id'] +
+              '/' +
+              data.filmId +
+              '.json',
+
+            data.favourite
+          );
+        }),
+        map((recipes) => {
+          console.log(recipes);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  //
+
+  fetchInitialFavourite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FilmsActions.fetchInitialFavourite),
+      withLatestFrom(this.store.select('auth')),
+      switchMap(([filmId, auth]) => {
+        return this.http
+          .get<boolean>(
+            'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites/' +
+              auth.user['id'] +
+              '/' +
+              filmId.filmId +
+              '.json'
+          )
+          .pipe(
+            map((data) => {
+              return FilmsActions.setInitialFavourite({ favourite: data });
+            })
+          );
+      })
+    )
+  );
+
+  fetchUsersFavourites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FilmsActions.fetchUsersFavourites),
+      withLatestFrom(this.store.select('auth')),
+      switchMap(([filmId, auth]) => {
+        return this.http
+          .get(
+            'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites/' +
+              auth.user['id'] +
+              '.json'
+          )
+          .pipe(
+            map((data) => {
+              return FilmsActions.setUsersFavourites({
+                favouriteList: data,
+              });
+            })
+          );
       })
     )
   );

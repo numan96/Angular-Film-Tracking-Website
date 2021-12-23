@@ -16,9 +16,11 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { AuthEffects } from './auth/store/auth.effects';
+import { FavouritesListComponent } from './users/favouritesList/favouritesList.component';
+import { WatchedListComponent } from './users/watchedList/watchedList.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FavouritesListComponent, WatchedListComponent],
   exports: [],
   imports: [
     SharedModule,

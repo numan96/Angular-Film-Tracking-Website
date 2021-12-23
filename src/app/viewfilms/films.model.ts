@@ -23,6 +23,8 @@ export class Films {
 
   public crew?: any;
 
+  public favourited?: boolean;
+
   constructor(
     original_title?: string,
     id?: number,
@@ -35,7 +37,8 @@ export class Films {
     vote_average?: number,
     runtime?: any,
     credits?: any,
-    crew?: any
+    crew?: any,
+    favourited?: boolean
   ) {
     this.original_title = original_title;
     this.id = id;
@@ -49,5 +52,6 @@ export class Films {
     this.runtime = runtime;
     this.credits = credits;
     this.crew = crew;
+    this.favourited = favourited;
   }
 }

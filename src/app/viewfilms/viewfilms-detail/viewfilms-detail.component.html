@@ -8,10 +8,10 @@
     <mat-card class="example-card">
       <mat-card-actions align="start">
         <div class="nav-actions">
-        <button mat-button class="nav" routerLink="..">Back</button>
+        <button mat-icon-button class="nav"  matTooltipClass="tooltip-fav" matTooltip="Go Back"  matTooltipPosition="above" aria-label="Button that shows favourites text" routerLink=".."><mat-icon>navigate_before</mat-icon></button>
 
-        <!-- MAT-ICON-BUTTON? -->
-        <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="favourited = !favourited" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+
+        <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite()" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
           <mat-icon>{{favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
 
           <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched = !watched" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
@@ -22,7 +22,6 @@
 
 
        <mat-card-title>{{ film.original_title }}</mat-card-title>
- <!-- SEPERATE RELEASE DATE AND HAVE A HEADER: RELEASE DATE -->
 
  <div>
   <p class="ratingText">Release Date</p>

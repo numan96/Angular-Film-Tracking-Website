@@ -37,3 +37,27 @@ export const SetSearchFilms = createAction(
   '[Films] Set Searched Films',
   props<{ films: Films[] }>()
 );
+
+export const setAsFavourite = createAction(
+  '[Films] Set Film as Favourite',
+  props<{ filmId: number; favourite: boolean }>()
+);
+
+export const fetchInitialFavourite = createAction(
+  '[Films] Fetch initial film favourite boolean.',
+  props<{ filmId: number }>()
+);
+
+export const setInitialFavourite = createAction(
+  '[Films] Set initial film favourite boolean.',
+  props<{ favourite: boolean }>()
+);
+
+export const fetchUsersFavourites = createAction(
+  '[Films] Fetch users film favourite list.'
+);
+
+export const setUsersFavourites = createAction(
+  '[Films] Set users film favourite list.',
+  props<{ favouriteList: object }>()
+);

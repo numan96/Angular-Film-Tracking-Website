@@ -13,6 +13,7 @@ export class ViewfilmsItemComponent implements OnInit {
   @Input() index: number;
   isLoggedIn = false;
   private userSub: Subscription;
+  private favouriteSub: Subscription;
   favourited = false;
   watched = false;
 
@@ -25,5 +26,9 @@ export class ViewfilmsItemComponent implements OnInit {
       .subscribe((user) => {
         this.isLoggedIn = !!user;
       });
+  }
+
+  onFavourite() {
+    this.favourited = !this.favourited;
   }
 }

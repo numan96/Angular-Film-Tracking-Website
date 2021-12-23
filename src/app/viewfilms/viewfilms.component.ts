@@ -16,6 +16,18 @@ import * as FilmsActions from './store/films.actions';
 export class ViewfilmsComponent implements OnInit, OnDestroy {
   films: Films[];
   subscription: Subscription;
+  favouriteFilms = {
+    '1930': true,
+    '102382': true,
+    '315635': true,
+    '370172': true,
+    '512195': false,
+    '580489': true,
+    '624860': true,
+    '634649': true,
+    '19404': true,
+  };
+  favourite = false;
 
   constructor(
     private router: Router,
@@ -29,7 +41,21 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
       .pipe(map((filmsState) => filmsState.films))
       .subscribe((films: Films[]) => {
         this.films = films;
+        console.log();
       });
+
+    for (let n = 0; n < this.films.length; n++) {
+      if (this.films[n].id === +Object.keys(this.favouriteFilms)[n]) {
+        // if (Object.values(this.favouriteFilms) === true) {
+        console.log('true');
+        // } else {
+        //   console.log('false');
+        // }
+      } else {
+        console.log('false');
+        // console.log(this.favourite);
+      }
+    }
   }
 
   popularFilms() {
