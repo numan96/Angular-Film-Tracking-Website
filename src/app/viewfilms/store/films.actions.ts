@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieData } from '../data.model';
 import { Films } from '../films.model';
 
 export const FetchPopularFilms = createAction('[Films] Fetch Popular Films');
@@ -40,7 +39,12 @@ export const SetSearchFilms = createAction(
 
 export const setAsFavourite = createAction(
   '[Films] Set Film as Favourite',
-  props<{ filmId: number; favourite: boolean }>()
+  props<{ filmId: number; filmName: string; favourite: boolean }>()
+);
+
+export const RemoveFavouriteFromList = createAction(
+  '[Films] Remove Film from Fav List',
+  props<{ filmId: number; filmName: string; favourite: boolean }>()
 );
 
 export const fetchInitialFavourite = createAction(
@@ -60,4 +64,8 @@ export const fetchUsersFavourites = createAction(
 export const setUsersFavourites = createAction(
   '[Films] Set users film favourite list.',
   props<{ favouriteList: object }>()
+);
+
+export const clearUserData = createAction(
+  '[Films] Clear users data on logout.'
 );

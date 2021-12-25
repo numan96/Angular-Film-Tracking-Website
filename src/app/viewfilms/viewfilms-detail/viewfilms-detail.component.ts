@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { concat, Subscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
-import { MovieData } from '../data.model';
 import { Films } from '../films.model';
 import * as FilmsActions from '../store/films.actions';
 import { selectFeature } from '../store/films.reducer';
@@ -66,7 +65,9 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
             this.store.dispatch(FilmsActions.FetchSingleFilm({ id: this.id }));
             console.log('Fetch Favourite');
             this.store.dispatch(
-              FilmsActions.fetchInitialFavourite({ filmId: this.id })
+              FilmsActions.fetchInitialFavourite({
+                filmId: this.id,
+              })
             );
           }
         })
@@ -92,8 +93,13 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
     this.favourited = !this.favourited;
     const id = this.id;
     const favourite = this.favourited;
+    const filmName = this.film.original_title;
     this.store.dispatch(
-      FilmsActions.setAsFavourite({ filmId: id, favourite: favourite })
+      FilmsActions.setAsFavourite({
+        filmId: id,
+        filmName: filmName,
+        favourite: favourite,
+      })
     );
 
     //boolean changes in the API with the film ID and favourite boolean, boolean sent to firebase:

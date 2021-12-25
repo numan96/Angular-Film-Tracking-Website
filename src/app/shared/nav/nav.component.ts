@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map, Subscription } from 'rxjs';
 import * as authActions from 'src/app/auth/store/auth.actions';
 import * as fromApp from 'src/app/store/app.reducer';
-
+import * as filmsActions from 'src/app/viewfilms/store/films.actions';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -31,6 +31,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.store.dispatch(authActions.Logout());
+    this.store.dispatch(filmsActions.clearUserData());
   }
 
   ngOnDestroy() {

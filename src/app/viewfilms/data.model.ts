@@ -1,10 +1,9 @@
 export class MovieData {
-  public filmId: number;
+  filmId: {
+    favourite: boolean;
+  };
 
-  public favourite: boolean;
-
-  constructor(filmId: number, favourite: boolean) {
+  constructor(filmId: { favourite: boolean }) {
     this.filmId = filmId;
-    this.favourite = favourite;
   }
 }

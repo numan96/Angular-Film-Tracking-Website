@@ -18,6 +18,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthEffects } from './auth/store/auth.effects';
 import { FavouritesListComponent } from './users/favouritesList/favouritesList.component';
 import { WatchedListComponent } from './users/watchedList/watchedList.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, FavouritesListComponent, WatchedListComponent],
@@ -29,6 +31,8 @@ import { WatchedListComponent } from './users/watchedList/watchedList.component'
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
+    MatCardModule,
+    MatButtonModule,
     StoreModule.forRoot({
       films: fromViewFilms.filmsReducer,
       auth: fromAuth.authReducer,
