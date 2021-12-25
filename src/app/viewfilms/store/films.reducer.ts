@@ -1,6 +1,4 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
-import { MovieData } from '../data.model';
 import { Films } from '../films.model';
 import * as FilmsActions from './films.actions';
 
@@ -9,7 +7,7 @@ export interface State {
   film: Films;
   searchFilms: Films[];
   favourites: boolean;
-  favouriteList: object;
+  favouriteList: any;
 }
 
 export const initialState: State = {
@@ -41,6 +39,11 @@ const _filmsReducer = createReducer(
   on(FilmsActions.setUsersFavourites, (state, action) => ({
     ...state,
     favouriteList: action.favouriteList,
+  })),
+  on(FilmsActions.clearUserData, (state) => ({
+    ...state,
+    favourites: null,
+    favouriteList: null,
   }))
 );
 

@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { pipe } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, pipe } from 'rxjs';
+import { map, switchMap, withLatestFrom } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
 import { MovieData } from '../data.model';
 import { Films } from '../films.model';
@@ -237,6 +237,8 @@ export class FilmsEffects {
               favouriteData.user['id'] +
               '/' +
               data.filmId +
+              '/' +
+              data.filmName +
               '.json',
 
             data.favourite
@@ -249,8 +251,29 @@ export class FilmsEffects {
     { dispatch: false }
   );
 
-  //
+  RemoveFavouriteFromList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FilmsActions.RemoveFavouriteFromList),
+      withLatestFrom(this.store.select('auth')),
+      switchMap(([data, favouriteData]) => {
+        return this.http.put(
+          'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites' +
+            '/' +
+            favouriteData.user['id'] +
+            '/' +
+            data.filmId +
+            '/' +
+            data.filmName +
+            '.json',
 
+          data.favourite
+        );
+      }),
+      map(() => {
+        return FilmsActions.fetchUsersFavourites();
+      })
+    )
+  );
   fetchInitialFavourite$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FilmsActions.fetchInitialFavourite),
@@ -266,7 +289,16 @@ export class FilmsEffects {
           )
           .pipe(
             map((data) => {
-              return FilmsActions.setInitialFavourite({ favourite: data });
+              if (!data) {
+                return FilmsActions.setInitialFavourite({ favourite: false });
+              }
+
+              var favValue = Object.values(data);
+              var fav = favValue.toString();
+              var fav1 = JSON.parse(fav);
+              console.log(fav1);
+
+              return FilmsActions.setInitialFavourite({ favourite: fav1 });
             })
           );
       })
@@ -277,9 +309,9 @@ export class FilmsEffects {
     this.actions$.pipe(
       ofType(FilmsActions.fetchUsersFavourites),
       withLatestFrom(this.store.select('auth')),
-      switchMap(([filmId, auth]) => {
+      mergeMap(([filmId, auth]) => {
         return this.http
-          .get(
+          .get<MovieData>(
             'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites/' +
               auth.user['id'] +
               '.json'
@@ -291,6 +323,13 @@ export class FilmsEffects {
               });
             })
           );
+        // .pipe(
+        //   map((data) => {
+        //     return FilmsActions.fetchFavouriteListDetails({
+        //       filmIds: data.favouriteList,
+        //     });
+        //   })
+        // );
       })
     )
   );
