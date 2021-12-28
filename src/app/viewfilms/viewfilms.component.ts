@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { concat, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Films } from './films.model';
 import * as fromApp from '../store/app.reducer';
@@ -16,19 +16,7 @@ import * as FilmsActions from './store/films.actions';
 export class ViewfilmsComponent implements OnInit, OnDestroy {
   films: Films[];
   subscription: Subscription;
-  favouriteFilms = {
-    '1930': true,
-    '102382': true,
-    '315635': true,
-    '370172': true,
-    '512195': false,
-    '580489': true,
-    '624860': true,
-    '634649': true,
-    '19404': true,
-  };
-  favourite = false;
-
+  favouritesList;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -36,6 +24,9 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(FilmsActions.fetchUsersFavourites());
+
+    this.setFilmFavourites();
     this.subscription = this.store
       .select('films')
       .pipe(map((filmsState) => filmsState.films))
@@ -44,44 +35,81 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
         console.log();
       });
 
-    for (let n = 0; n < this.films.length; n++) {
-      if (this.films[n].id === +Object.keys(this.favouriteFilms)[n]) {
-        // if (Object.values(this.favouriteFilms) === true) {
-        console.log('true');
-        // } else {
-        //   console.log('false');
-        // }
-      } else {
-        console.log('false');
-        // console.log(this.favourite);
-      }
-    }
+    concat(
+      this.store
+        .select('films')
+        .pipe(map((filmState) => filmState.favouriteList))
+        .pipe(
+          map((favourite) => {
+            this.favouritesList = favourite;
+          })
+        )
+    ).subscribe();
   }
 
   popularFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchPopularFilms());
+    this.setFilmFavourites();
   }
 
   nowPlayingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchNowPlayingFilms());
     console.log(this.films);
+    this.setFilmFavourites();
   }
 
   upcomingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchUpcomingFilms());
     console.log(this.films);
+    this.setFilmFavourites();
   }
 
   topRatedFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchTopRatedFilms());
     console.log(this.films);
+    this.setFilmFavourites();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  setFilmFavourites() {
+    setTimeout(() => {
+      if (!this.favouritesList) {
+        for (var i = 0; i < 20; i++) {
+          this.store.dispatch(
+            FilmsActions.RemoveFavouriteFromList({
+              filmId: this.films[i].id,
+              filmName: this.films[i].original_title,
+              favourite: false,
+            })
+          );
+        }
+      } else {
+        var favValue = Object.keys(this.favouritesList);
+        var fav = favValue.toString();
+        var fav1 = fav.split(',');
+        var arrayofFavs = fav1.map(Number);
+        for (var i = 0; i < 20; i++) {
+          if (arrayofFavs.includes(this.films[i].id)) {
+            console.log('found in your fav list ' + this.films[i].id);
+          } else {
+            console.log('not found in fav list ' + this.films[i].id);
+            this.store.dispatch(
+              FilmsActions.RemoveFavouriteFromList({
+                filmId: this.films[i].id,
+                filmName: this.films[i].original_title,
+                favourite: false,
+              })
+            );
+          }
+        }
+      }
+    }, 500);
   }
 }

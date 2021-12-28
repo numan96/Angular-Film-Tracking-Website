@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Films } from '../films.model';
 import * as fromApp from 'src/app/store/app.reducer';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
+import { concat, map, Subscription } from 'rxjs';
+import * as FilmsActions from '../store/films.actions';
 @Component({
   selector: 'app-viewfilms-item',
   templateUrl: './viewfilms-item.component.html',
@@ -16,7 +17,9 @@ export class ViewfilmsItemComponent implements OnInit {
   private favouriteSub: Subscription;
   favourited = false;
   watched = false;
-
+  favouritesList;
+  id: number;
+  isButtonVisible = true;
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
@@ -26,9 +29,28 @@ export class ViewfilmsItemComponent implements OnInit {
       .subscribe((user) => {
         this.isLoggedIn = !!user;
       });
-  }
 
-  onFavourite() {
-    this.favourited = !this.favourited;
+    concat(
+      this.store
+        .select('films')
+        .pipe(map((filmState) => filmState.favouriteList))
+        .pipe(
+          map((favourite) => {
+            this.favouritesList = favourite;
+          })
+        )
+    ).subscribe();
+  }
+  onFavourite(favourite: boolean) {
+    const id = this.filmItem.id;
+    favourite = !favourite;
+    const filmName = this.filmItem.original_title;
+    this.store.dispatch(
+      FilmsActions.RemoveFavouriteFromList({
+        filmId: id,
+        filmName: filmName,
+        favourite: favourite,
+      })
+    );
   }
 }

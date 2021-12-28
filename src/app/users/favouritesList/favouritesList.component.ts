@@ -26,16 +26,6 @@ export class FavouritesListComponent implements OnInit {
         .pipe(
           map((favourite) => {
             this.favouritesList = favourite;
-
-            setTimeout(() => {
-              console.log(this.favouritesList);
-
-              var hasFalseVals = Object.values(
-                this.favouritesList[634649]
-              ).every((index) => !index);
-
-              console.log(hasFalseVals);
-            }, 1000);
           })
         )
     ).subscribe();

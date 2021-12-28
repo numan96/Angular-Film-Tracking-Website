@@ -70,6 +70,7 @@ export class FilmsEffects {
                   release_date: obj.release_date,
                   poster_path: this.webUrl.concat('', obj.poster_path),
                   vote_average: obj.vote_average * 10,
+                  favourited: false,
                 };
               })
             )
@@ -102,6 +103,7 @@ export class FilmsEffects {
                   release_date: obj.release_date,
                   poster_path: this.webUrl.concat('', obj.poster_path),
                   vote_average: obj.vote_average * 10,
+                  favourited: false,
                 };
               })
             )
@@ -135,6 +137,7 @@ export class FilmsEffects {
                   release_date: obj.release_date,
                   poster_path: this.webUrl.concat('', obj.poster_path),
                   vote_average: obj.vote_average * 10,
+                  favourited: false,
                 };
               })
             )

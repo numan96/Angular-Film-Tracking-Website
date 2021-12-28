@@ -11,12 +11,29 @@ routerLinkActive="active"
     <div class="column">
 
 
+
 <mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
    <mat-card-actions align="start">
 
 <!-- snackbar when adding to fav/watch lsit -->
-    <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite()" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
-      <mat-icon>{{filmItem.favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
+<div style="display: inline;" *ngFor="let favouriteId of favouritesList | keyvalue">
+  <div style="display: inline;" *ngFor="let favouriteName of favouriteId.value | keyvalue">
+    <!-- <ng-container *ngIf="favouriteName.key === filmItem.original_title && favouriteName.value === true;">
+     <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite(favouriteName.value)" matTooltip="{{favouriteName.value ? 'Remove from Favourites' : 'Add to Favourites'}}"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+      <mat-icon>{{favouriteName.value ? 'favorite' : 'favorite_border'}}</mat-icon></button>
+    </ng-container> -->
+
+
+    <ng-container *ngIf="favouriteName.key === filmItem.original_title">
+      <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite(favouriteName.value)" matTooltip="{{favouriteName.value ? 'Remove from Favourites' : 'Add to Favourites'}}"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+       <mat-icon>{{favouriteName.value ? 'favorite' : 'favorite_border'}}</mat-icon></button>
+     </ng-container>
+</div>
+</div>
+ <!-- <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite(false)" matTooltip="Add to Favourites"  matTooltipPosition="above" aria-label="Button that shows favourites text">
+        <mat-icon>favorite_border</mat-icon></button> -->
+
+
     <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched = !watched" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
       <mat-icon>{{watched ? 'playlist_add_check' : 'playlist_add'}}</mat-icon></button>
    <button mat-icon-button class="navigate" [routerLink]="[index]" matTooltipClass="tooltip-fav" matTooltip="Go to Details" matTooltipPosition="above" aria-label="Button that shows details text"><mat-icon>navigate_next</mat-icon></button>
@@ -40,12 +57,13 @@ routerLinkActive="active"
     </p>
 <p class="ratingText">{{filmItem.vote_average}}%</p>
 
+
+
   </mat-card-content>
 
 </mat-card>
 
 </div>
-
 
 </div>
 </div>
