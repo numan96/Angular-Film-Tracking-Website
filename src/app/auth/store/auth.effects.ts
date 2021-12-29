@@ -131,7 +131,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.AuthSuccess),
-        tap((action) => action.redirect && this.router.navigate(['/']))
+        tap(() => this.router.navigate(['/']))
       ),
     { dispatch: false }
   );

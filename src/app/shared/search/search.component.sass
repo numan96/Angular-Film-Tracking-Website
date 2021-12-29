@@ -44,3 +44,24 @@ $activecolor: #7AFFE3
 .mat-option:hover
   color: $activecolor
   background: #252E42
+.option-img
+  vertical-align: middle
+  margin-right: 8px
+
+@media only screen and (max-width: 600px)
+  .searchDiv
+    display: flex
+    float: left
+    padding: 2%
+    color: $primarycolor
+    vertical-align: middle
+  ::ng-deep .mat-form-field
+    max-width: 80%
+    max-height: 20%
+    line-height: 20px
+    vertical-align: middle
+    ::ng-deep .mat-form-field-infix
+      width: 10%
+      height: 4px
+    form
+      max-width: 80%

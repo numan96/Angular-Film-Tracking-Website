@@ -4,10 +4,12 @@
       <mat-label>Search for a Film</mat-label>
       <input matInput id="filmName" [matAutocomplete]="auto" type="search" [formControl]="filmName"
       (keyup)="onKey(filmName.value)">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="40%" >
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="100%">
         <!-- maybe change panelwidth on mobile to 100% (full screen width) -->
         <mat-option *ngFor="let option of films " [value]="option.original_title" (click)="toFilm(option.id)">
-          {{option.original_title}}
+         <img class="option-img" [src]="option.poster_path" height="40">
+
+         <span>{{option.original_title}}</span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

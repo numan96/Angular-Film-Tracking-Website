@@ -23,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { WatchedDialogComponent } from './shared/watched-dialog/watched-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +42,7 @@ import { DatePipe } from '@angular/common';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatToolbarModule,
     StoreModule.forRoot({
       films: fromViewFilms.filmsReducer,
       auth: fromAuth.authReducer,

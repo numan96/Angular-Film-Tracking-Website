@@ -8,7 +8,7 @@
 <p class="welcomeUser" *ngIf="isLoggedIn">{{ userName }}</p>
 
 
-<button mat-fab *ngIf="isLoggedIn" [matMenuTriggerFor]="account"><mat-icon>person</mat-icon></button>
+<button mat-icon-button *ngIf="isLoggedIn" [matMenuTriggerFor]="account"><mat-icon>person</mat-icon></button>
 <mat-menu #account="matMenu" class="nav-dropdown" xPosition="before">
 <button   mat-menu-item class="nav-dropdown" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn">My Lists</button>
 <button  mat-menu-item class="nav-dropdown" (click)="onLogout()">Logout</button>
@@ -22,7 +22,7 @@
 
   <!-- ADD MAT-MENU TO DROPDOWN MENU ON MOBILE -->
 <button  mat-button class="nav" routerLinkActive="active" routerLink="/films" [routerLinkActiveOptions]="{ exact: true }">View Films</button>
-<button  mat-button class="nav" routerLinkActive="active" *ngIf="!isLoggedIn" routerLink="/auth">Login/Signup</button>
+<button  mat-button class="nav" routerLinkActive="active" *ngIf="!isLoggedIn" routerLink="/auth">Auth</button>
 
 
 

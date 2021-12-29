@@ -10,11 +10,17 @@ $bgcolor: #2F3B52
   align-content: center
   align-items: center
   align-self: center
-.row-videos
+
+.video
+  margin: 1%
+  justify-content: space-evenly
+  flex-direction: row
   display: flex
-  flex: 0 0 100%
+  width: 100%
+  flex: 0 10 100%
   flex-wrap: wrap
-  justify-content: space-between
+  margin-left: auto
+  margin-right: auto
 .row-header
   display: flex
   flex: 0 0 100%
@@ -113,12 +119,6 @@ p.ratingText
 .mat-chip-list
   margin: 5px
   float: right
-.video
-  margin-left: auto
-  margin-right: auto
-  align-self: center
-  align-items: center
-  align-content: center
 
 .ratings
   justify-content: end
@@ -132,6 +132,13 @@ p.ratingText
   text-align: center
   width: 60%
 
+.runtime
+  font-size: large
+  margin-left: auto
+  margin-right: auto
+  vertical-align: center
+  text-align: center
+  width: 60%
 .director
   font-size: large
 
@@ -167,3 +174,86 @@ p.ratingText
   justify-content: space-between
   margin-left: auto
   margin-right: auto
+
+.videosPC
+  visibility: visible
+
+.videosMobile
+  display: none
+
+@media only screen and (max-width: 600px)
+  .example-card
+    width: 50%
+    flex: 0 0 80%
+  .mat-card-title
+    font-size: x-large
+    font-weight: bolder
+  .mat-card-header
+    display: block
+    justify-content: stretch
+  p.ratingText
+    font-size: small
+    margin: 0
+
+  p.director
+    font-size: medium
+    text-align: center
+
+  p.genreText
+    display: none
+
+  p.directorText
+    text-align: center
+
+  .overview
+    font-size: medium
+    width: 100%
+    text-align: left
+  .runtime
+    font-size: medium
+    width: 100%
+    text-align: center
+  .mat-card-image
+    width: 100%
+
+  .mat-chips
+    display: flex
+    vertical-align: middle
+    justify-content: space-evenly
+  .mat-chip
+    font-size: x-small
+  .ratings
+    float: inline-end
+    margin: 15%
+
+  .cast-card
+    flex: 0 0 100%
+    width: 80%
+    margin: 1%
+    padding: 0
+    height: 40%
+  .cast-row
+    flex-wrap: wrap
+    justify-content: space-between
+    width: 80%
+    align-items: stretch
+
+  .castTxt
+    font-size: small
+
+  .mat-card-subtitle.castTxt
+    font-size: x-small
+
+  .castPic
+    width: 60%
+    display: block
+  .videos
+    width: 100%
+    flex-wrap: wrap
+    justify-content: space-evenly
+
+  .videosPC
+    display: none
+
+  .videosMobile
+    display: block
