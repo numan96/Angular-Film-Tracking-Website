@@ -20,9 +20,17 @@ import { FavouritesListComponent } from './users/favouritesList/favouritesList.c
 import { WatchedListComponent } from './users/watchedList/watchedList.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { WatchedDialogComponent } from './shared/watched-dialog/watched-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, FavouritesListComponent, WatchedListComponent],
+  declarations: [
+    AppComponent,
+    FavouritesListComponent,
+    WatchedListComponent,
+    WatchedDialogComponent,
+  ],
   exports: [],
   imports: [
     SharedModule,
@@ -33,6 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     MatCardModule,
     MatButtonModule,
+    MatDialogModule,
     StoreModule.forRoot({
       films: fromViewFilms.filmsReducer,
       auth: fromAuth.authReducer,
@@ -41,7 +50,7 @@ import { MatButtonModule } from '@angular/material/button';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

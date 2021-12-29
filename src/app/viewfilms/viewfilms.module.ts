@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ViewfilmsComponent } from './viewfilms.component';
 import { ViewfilmsItemComponent } from './viewfilms-item/viewfilms-item.component';
 import { RouterModule } from '@angular/router';
@@ -34,5 +34,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ViewfilmsItemComponent,
     ViewfilmsDetailComponent,
   ],
+  providers: [DatePipe],
 })
 export class ViewfilmsModule {}

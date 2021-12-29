@@ -42,13 +42,28 @@ export const setAsFavourite = createAction(
   props<{ filmId: number; filmName: string; favourite: boolean }>()
 );
 
+export const setAsWatched = createAction(
+  '[Films] Set Film as Watched',
+  props<{ filmId: number; filmName: string; watched: string }>()
+);
+
 export const RemoveFavouriteFromList = createAction(
   '[Films] Remove Film from Fav List',
   props<{ filmId: number; filmName: string; favourite: boolean }>()
 );
 
+export const RemoveWatchedFromList = createAction(
+  '[Films] Remove Film from Watched List',
+  props<{ filmId: number; filmName: string; watched: string }>()
+);
+
 export const fetchInitialFavourite = createAction(
   '[Films] Fetch initial film favourite boolean.',
+  props<{ filmId: number }>()
+);
+
+export const fetchInitialWatched = createAction(
+  '[Films] Fetch initial film watched string.',
   props<{ filmId: number }>()
 );
 
@@ -57,13 +72,27 @@ export const setInitialFavourite = createAction(
   props<{ favourite: boolean }>()
 );
 
+export const setInitialWatched = createAction(
+  '[Films] Set initial film watched string.',
+  props<{ watched: string }>()
+);
+
 export const fetchUsersFavourites = createAction(
   '[Films] Fetch users film favourite list.'
+);
+
+export const fetchUsersWatched = createAction(
+  '[Films] Fetch watched films list.'
 );
 
 export const setUsersFavourites = createAction(
   '[Films] Set users film favourite list.',
   props<{ favouriteList: object }>()
+);
+
+export const setUsersWatched = createAction(
+  '[Films] Set users watched films list.',
+  props<{ watchedList: object }>()
 );
 
 export const clearUserData = createAction(

@@ -8,6 +8,8 @@ export interface State {
   searchFilms: Films[];
   favourites: boolean;
   favouriteList: any;
+  watchedList: any;
+  watched: string;
 }
 
 export const initialState: State = {
@@ -16,6 +18,8 @@ export const initialState: State = {
   searchFilms: [],
   favourites: null,
   favouriteList: null,
+  watchedList: null,
+  watched: null,
 };
 
 const _filmsReducer = createReducer(
@@ -36,14 +40,24 @@ const _filmsReducer = createReducer(
     ...state,
     favourites: action.favourite,
   })),
+  on(FilmsActions.setInitialWatched, (state, action) => ({
+    ...state,
+    watched: action.watched,
+  })),
   on(FilmsActions.setUsersFavourites, (state, action) => ({
     ...state,
     favouriteList: action.favouriteList,
   })),
+  on(FilmsActions.setUsersWatched, (state, action) => ({
+    ...state,
+    watchedList: action.watchedList,
+  })),
   on(FilmsActions.clearUserData, (state) => ({
     ...state,
     favourites: null,
+    watched: null,
     favouriteList: null,
+    watchedList: null,
   }))
 );
 

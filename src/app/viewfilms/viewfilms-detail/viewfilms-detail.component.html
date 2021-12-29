@@ -14,8 +14,12 @@
         <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite()" matTooltip="{{favourited ? 'Remove from Favourites' : 'Add to Favourites'}}"  matTooltipPosition="above" aria-label="Button that shows favourites text">
           <mat-icon>{{favourited ? 'favorite' : 'favorite_border'}}</mat-icon></button>
 
-          <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched = !watched" matTooltip="Add to Watched"  matTooltipPosition="above" aria-label="Button that shows watched text">
-            <mat-icon>{{watched ? 'playlist_add_check' : 'playlist_add'}}</mat-icon></button></div>
+          <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="watched === 'false' ? onWatched() : openDialog()" matTooltip="{{watched === 'false' ? 'Add to Watched' : 'Remove from Watched'}}"  matTooltipPosition="above" aria-label="Button that shows watched text">
+            <mat-icon>{{watched === 'false' ? 'playlist_add' : 'playlist_add_check'}}</mat-icon></button>
+
+            <p *ngIf="watched != 'false'">Watched on: {{watched | date: 'longDate'}}</p>
+          </div>
+
       </mat-card-actions>
        <mat-card-header>
 

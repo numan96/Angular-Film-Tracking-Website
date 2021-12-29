@@ -17,6 +17,7 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
   films: Films[];
   subscription: Subscription;
   favouritesList;
+  watchedList;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -25,14 +26,15 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(FilmsActions.fetchUsersFavourites());
-
+    this.store.dispatch(FilmsActions.fetchUsersWatched());
     this.setFilmFavourites();
+    this.setFilmsWatched();
+
     this.subscription = this.store
       .select('films')
       .pipe(map((filmsState) => filmsState.films))
       .subscribe((films: Films[]) => {
         this.films = films;
-        console.log();
       });
 
     concat(
@@ -45,33 +47,45 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
           })
         )
     ).subscribe();
+
+    concat(
+      this.store
+        .select('films')
+        .pipe(map((filmState) => filmState.watchedList))
+        .pipe(
+          map((watched) => {
+            this.watchedList = watched;
+          })
+        )
+    ).subscribe();
   }
 
   popularFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchPopularFilms());
     this.setFilmFavourites();
+    this.setFilmsWatched();
   }
 
   nowPlayingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchNowPlayingFilms());
-    console.log(this.films);
     this.setFilmFavourites();
+    this.setFilmsWatched();
   }
 
   upcomingFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchUpcomingFilms());
-    console.log(this.films);
     this.setFilmFavourites();
+    this.setFilmsWatched();
   }
 
   topRatedFilms() {
     this.films = [];
     this.store.dispatch(FilmsActions.FetchTopRatedFilms());
-    console.log(this.films);
     this.setFilmFavourites();
+    this.setFilmsWatched();
   }
 
   ngOnDestroy() {
@@ -95,11 +109,10 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
         var fav = favValue.toString();
         var fav1 = fav.split(',');
         var arrayofFavs = fav1.map(Number);
+
         for (var i = 0; i < 20; i++) {
           if (arrayofFavs.includes(this.films[i].id)) {
-            console.log('found in your fav list ' + this.films[i].id);
           } else {
-            console.log('not found in fav list ' + this.films[i].id);
             this.store.dispatch(
               FilmsActions.RemoveFavouriteFromList({
                 filmId: this.films[i].id,
@@ -111,5 +124,39 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
         }
       }
     }, 500);
+  }
+
+  setFilmsWatched() {
+    setTimeout(() => {
+      if (!this.watchedList) {
+        for (var i = 0; i < 20; i++) {
+          this.store.dispatch(
+            FilmsActions.RemoveWatchedFromList({
+              filmId: this.films[i].id,
+              filmName: this.films[i].original_title,
+              watched: 'false',
+            })
+          );
+        }
+      } else {
+        var watchValue = Object.keys(this.watchedList);
+        var watch = watchValue.toString();
+        var watched = watch.split(',');
+        var arrayofWatched = watched.map(Number);
+
+        for (var i = 0; i < 20; i++) {
+          if (arrayofWatched.includes(this.films[i].id)) {
+          } else {
+            this.store.dispatch(
+              FilmsActions.RemoveWatchedFromList({
+                filmId: this.films[i].id,
+                filmName: this.films[i].original_title,
+                watched: 'false',
+              })
+            );
+          }
+        }
+      }
+    }, 2000);
   }
 }

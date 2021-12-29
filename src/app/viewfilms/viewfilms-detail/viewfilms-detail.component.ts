@@ -1,13 +1,15 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { concat, Subscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
+import { WatchedDialogComponent } from 'src/app/shared/watched-dialog/watched-dialog.component';
 import * as fromApp from '../../store/app.reducer';
 import { Films } from '../films.model';
 import * as FilmsActions from '../store/films.actions';
-import { selectFeature } from '../store/films.reducer';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-viewfilms-detail',
   templateUrl: './viewfilms-detail.component.html',
@@ -23,13 +25,16 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
 
   userId: string;
   favourited = false;
-  watched = false;
+  watched = 'false';
   private userSub: Subscription;
   private favouriteSub: Subscription;
+  private watchedSub: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
+    public dialog: MatDialog,
+    public datepipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +44,6 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
       .subscribe((user) => {
         this.isLoggedIn = !!user;
         this.userId = user.id;
-        console.log(this.userId);
       });
 
     this.favouriteSub = this.store
@@ -49,23 +53,30 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
         this.favourited = favourite;
       });
 
+    this.watchedSub = this.store
+      .select('films')
+      .pipe(map((filmState) => filmState.watched))
+      .subscribe((watched) => {
+        this.watched = watched;
+      });
+
     concat(
       this.route.params.pipe(
         take(1),
         map((params) => {
-          console.log('pparams:', params);
           this.id = params['id'];
           return +params['id'];
         }),
         tap((film) => {
-          console.log('film:', film);
-
           if (!this.film) {
-            console.log('Fetch Single Film');
             this.store.dispatch(FilmsActions.FetchSingleFilm({ id: this.id }));
-            console.log('Fetch Favourite');
             this.store.dispatch(
               FilmsActions.fetchInitialFavourite({
+                filmId: this.id,
+              })
+            );
+            this.store.dispatch(
+              FilmsActions.fetchInitialWatched({
                 filmId: this.id,
               })
             );
@@ -89,6 +100,26 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  setWatchedToFalse() {
+    this.watched = 'false';
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(WatchedDialogComponent, {
+      data: {
+        filmId: this.id,
+        filmName: this.film.original_title,
+        watched: 'false',
+      },
+      panelClass: 'custom-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'false') {
+        this.watched = result;
+      }
+    });
+  }
+
   onFavourite() {
     this.favourited = !this.favourited;
     const id = this.id;
@@ -101,14 +132,25 @@ export class ViewfilmsDetailComponent implements OnInit, OnDestroy {
         favourite: favourite,
       })
     );
-
-    //boolean changes in the API with the film ID and favourite boolean, boolean sent to firebase:
-    //userId sent aswell to match up with Db.
-
-    //PUT REQUEST TO FAVOURITE, DELETE REQUEST IF DESELECTING
   }
 
-  ngOnDestroy(): void {
-    this.favouriteSub.unsubscribe();
+  onWatched() {
+    const id = this.id;
+    const filmName = this.film.original_title;
+
+    if (this.watched === 'false') {
+      const watched = new Date();
+      const watched1 = this.datepipe.transform(watched, 'yyyy-MM-dd');
+      this.watched = watched1;
+      this.store.dispatch(
+        FilmsActions.setAsWatched({
+          filmId: id,
+          filmName: filmName,
+          watched: watched1,
+        })
+      );
+    }
   }
+
+  ngOnDestroy(): void {}
 }

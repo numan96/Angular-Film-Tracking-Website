@@ -3,8 +3,6 @@ import { Store } from '@ngrx/store';
 import * as FilmsActions from '../../viewfilms/store/films.actions';
 import * as fromApp from '../../store/app.reducer';
 import { concat, map, Observable, Subscription } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
-import { MovieData } from 'src/app/viewfilms/data.model';
 @Component({
   selector: 'app-favouritesList',
   templateUrl: './favouritesList.component.html',
@@ -12,7 +10,6 @@ import { MovieData } from 'src/app/viewfilms/data.model';
 })
 export class FavouritesListComponent implements OnInit {
   favouritesList;
-  private favouriteSub: Subscription;
 
   constructor(private store: Store<fromApp.AppState>) {}
 

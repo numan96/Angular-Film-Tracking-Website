@@ -112,7 +112,6 @@ export class AuthEffects {
               this.authService.setLogoutTimer(+resData.expiresIn * 1000);
             }),
             map((resData) => {
-              console.log(resData);
               return handleAuthentication(
                 +resData.expiresIn,
                 resData.email,
