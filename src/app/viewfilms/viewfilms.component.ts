@@ -26,7 +26,9 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(FilmsActions.fetchUsersFavourites());
+
     this.store.dispatch(FilmsActions.fetchUsersWatched());
+
     this.setFilmFavourites();
     this.setFilmsWatched();
 

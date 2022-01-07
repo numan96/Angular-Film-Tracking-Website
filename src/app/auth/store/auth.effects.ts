@@ -9,7 +9,7 @@ import { User } from '../user.model';
 import * as authActions from './auth.actions';
 import * as fromApp from '../../store/app.reducer';
 import { AuthService } from '../auth.service';
-
+import * as FilmsActions from '../../viewfilms/store/films.actions';
 export interface AuthResponseData {
   idToken: string;
   email: string;
