@@ -18,6 +18,7 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   favouritesList;
   watchedList;
+  isLoggedIn;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -25,12 +26,19 @@ export class ViewfilmsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(FilmsActions.fetchUsersFavourites());
-
-    this.store.dispatch(FilmsActions.fetchUsersWatched());
-
-    this.setFilmFavourites();
-    this.setFilmsWatched();
+    this.store
+      .select('auth')
+      .pipe(map((authState) => authState.user))
+      .subscribe((user) => {
+        this.isLoggedIn = !!user;
+        if (this.isLoggedIn === false) {
+        } else {
+          this.store.dispatch(FilmsActions.fetchUsersFavourites());
+          this.store.dispatch(FilmsActions.fetchUsersWatched());
+          this.setFilmFavourites();
+          this.setFilmsWatched();
+        }
+      });
 
     this.subscription = this.store
       .select('films')

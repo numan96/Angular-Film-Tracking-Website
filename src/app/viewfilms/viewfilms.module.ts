@@ -14,6 +14,15 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { EffectsModule } from '@ngrx/effects';
+import { FilmsEffects } from './store/films.effects';
+import { AuthEffects } from '../auth/store/auth.effects';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import * as fromViewFilms from './store/films.reducer';
+import * as fromAuth from '../auth/store/auth.reducer';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,6 +37,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatChipsModule,
     MatTooltipModule,
     MatGridListModule,
+    EffectsModule.forFeature([AuthEffects, FilmsEffects]),
   ],
   declarations: [
     ViewfilmsComponent,

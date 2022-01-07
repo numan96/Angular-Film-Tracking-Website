@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, pipe } from 'rxjs';
+import { catchError, mergeMap, of, pipe, throwError } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
 import { MovieData } from '../data.model';
@@ -277,28 +277,31 @@ export class FilmsEffects {
     { dispatch: false }
   );
 
-  RemoveFavouriteFromList$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(FilmsActions.RemoveFavouriteFromList),
-      withLatestFrom(this.store.select('auth')),
-      switchMap(([data, favouriteData]) => {
-        return this.http.put(
-          'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites' +
-            '/' +
-            favouriteData.user['id'] +
-            '/' +
-            data.filmId +
-            '/' +
-            data.filmName +
-            '.json',
+  RemoveFavouriteFromList$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(FilmsActions.RemoveFavouriteFromList),
+        withLatestFrom(this.store.select('auth')),
+        switchMap(([data, favouriteData]) => {
+          return this.http.put(
+            'https://ng-flixible-default-rtdb.europe-west1.firebasedatabase.app/favourites' +
+              '/' +
+              favouriteData.user['id'] +
+              '/' +
+              data.filmId +
+              '/' +
+              data.filmName +
+              '.json',
 
-          data.favourite
-        );
-      }),
-      map(() => {
-        return FilmsActions.fetchUsersFavourites();
-      })
-    )
+            data.favourite
+          );
+        }),
+        map((res) => {
+          console.log(res);
+          return FilmsActions.fetchUsersFavourites();
+        })
+      ),
+    { dispatch: true }
   );
 
   RemoveWatchedFromList$ = createEffect(() =>
@@ -324,6 +327,7 @@ export class FilmsEffects {
       })
     )
   );
+
   fetchInitialFavourite$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FilmsActions.fetchInitialFavourite),

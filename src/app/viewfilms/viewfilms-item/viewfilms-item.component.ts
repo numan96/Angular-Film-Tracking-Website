@@ -61,6 +61,7 @@ export class ViewfilmsItemComponent implements OnInit {
   onFavourite(favourite: boolean) {
     const id = this.filmItem.id;
     favourite = !favourite;
+    console.log(favourite);
     const filmName = this.filmItem.original_title;
     this.store.dispatch(
       FilmsActions.RemoveFavouriteFromList({
