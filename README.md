@@ -1,6 +1,6 @@
 # Flixible
 
-This Angular website was created with Angular, TypeScript, Angular Material, SAS and Firebase.
+This Angular website was created with Angular, TypeScript, Angular Material, SAAS and Firebase.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
