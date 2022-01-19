@@ -26,7 +26,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 **Watched List** - List of an authenticated users watched films, which provides a date when the user selected it as watched (Films can be set as watched by clicking the 'List' icon on the right of the 'Heart' icon).
 
-**Search bar** - Users can search any film in The Movie DB API, clicking the film in the search bar will take the user to the films Details page. 
+**Search Bar** - Users can search any film in The Movie DB API, clicking the film in the search bar will take the user to the films Details page. 
 
 **Film Details** - A page with all the information about the selected film such as the cast, trailers from YouTube, runtime and the Films rating.
 
