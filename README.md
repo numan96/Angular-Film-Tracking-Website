@@ -2,6 +2,16 @@
 
 This Angular website was created with Angular, TypeScript, NgRx, Angular Material, SASS and Firebase.
 
+## Live Website
+
+`https://ng-flixible.web.app/films`
+
+## Test Login Details
+
+Username: test@test.com 
+
+Password: test123
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
 ## Development server
