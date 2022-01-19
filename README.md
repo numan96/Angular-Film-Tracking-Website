@@ -1,6 +1,6 @@
 # Flixible
 
-This Angular website was created with Angular, TypeScript, NgRx, Angular Material, SASS and Firebase.
+This Angular website was created with Angular 13, TypeScript, NgRx, Angular Material, SASS and Firebase.
 
 ## Live Website
 
