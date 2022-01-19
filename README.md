@@ -22,13 +22,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 **View Films** - View list of the latest films, different categories such as Most Popular, Now Playing and Top Rated.
 
-**Favourites List** List of an authenticated users favourite films (Films can be selected on homepage or the films details page by clicking the 'Heart' icon).
+**Favourites List** - List of an authenticated users favourite films (Films can be selected on homepage or the films details page by clicking the 'Heart' icon).
 
-**Watched List** List of an authenticated users watched films, which provides a date when the user selected it as watched (Films can be set as watched by clicking the 'List' icon on the right of the 'Heart' icon).
+**Watched List** - List of an authenticated users watched films, which provides a date when the user selected it as watched (Films can be set as watched by clicking the 'List' icon on the right of the 'Heart' icon).
 
-**Search bar** Users can search any film in The Movie DB API, clicking the film in the search bar will take the user to the films Details page. 
+**Search bar** - Users can search any film in The Movie DB API, clicking the film in the search bar will take the user to the films Details page. 
 
-**Film Details** A page with all the information about the selected film such as the cast, trailers from YouTube, runtime and the Films rating.
+**Film Details** - A page with all the information about the selected film such as the cast, trailers from YouTube, runtime and the Films rating.
 
 ## Development server
 
