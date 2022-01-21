@@ -1,26 +1,28 @@
 <div class="filterFilms">
-<mat-button-toggle-group name="filterFilms" aria-label="Filter Films" value="popular">
-  <mat-button-toggle value="popular" (click)="popularFilms()">Most Popular</mat-button-toggle>
-  <mat-button-toggle value="now_playing" (click)="nowPlayingFilms()">Now Playing</mat-button-toggle>
-  <mat-button-toggle value="upcoming" (click)="upcomingFilms()">Upcoming</mat-button-toggle>
-  <mat-button-toggle value="top_rated" (click)="topRatedFilms()">Top Rated</mat-button-toggle>
-</mat-button-toggle-group>
+  <mat-button-toggle-group
+    name="filterFilms"
+    aria-label="Filter Films"
+    value="popular"
+  >
+    <mat-button-toggle value="popular" (click)="popularFilms()"
+      >Most Popular</mat-button-toggle
+    >
+    <mat-button-toggle value="now_playing" (click)="nowPlayingFilms()"
+      >Now Playing</mat-button-toggle
+    >
+    <mat-button-toggle value="upcoming" (click)="upcomingFilms()"
+      >Upcoming</mat-button-toggle
+    >
+    <mat-button-toggle value="top_rated" (click)="topRatedFilms()"
+      >Top Rated</mat-button-toggle
+    >
+  </mat-button-toggle-group>
 </div>
 
 <div class="row">
-
-
-
-    <app-viewfilms-item
+  <app-viewfilms-item
     *ngFor="let filmElement of films; let i = index"
     [filmItemArray]="filmElement"
-   [index]="filmElement.id" ></app-viewfilms-item>
-
-
-  </div>
-
-
-
-
-
-
+    [index]="filmElement.id"
+  ></app-viewfilms-item>
+</div>

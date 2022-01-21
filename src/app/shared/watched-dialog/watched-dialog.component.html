@@ -1,8 +1,16 @@
 <h1 mat-dialog-title>{{ data.filmName }}</h1>
-<div mat-dialog-content>Are you sure you would like to remove {{ data.filmName }} from your watched list?</div>
+<div mat-dialog-content>
+  Are you sure you would like to remove {{ data.filmName }} from your watched
+  list?
+</div>
 <div mat-dialog-actions>
-
-
   <button mat-button class="navCancel" (click)="onNoClick()">Cancel</button>
-  <button mat-button class="navSubmit" [mat-dialog-close]="'false'" (click)="onSubmit()">Remove</button>
+  <button
+    mat-button
+    class="navSubmit"
+    [mat-dialog-close]="'false'"
+    (click)="onSubmit()"
+  >
+    Remove
+  </button>
 </div>

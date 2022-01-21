@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
 import { ViewfilmsComponent } from './viewfilms.component';
 import { ViewfilmsItemComponent } from './viewfilms-item/viewfilms-item.component';
 import { RouterModule } from '@angular/router';
@@ -17,16 +16,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { EffectsModule } from '@ngrx/effects';
 import { FilmsEffects } from './store/films.effects';
 import { AuthEffects } from '../auth/store/auth.effects';
-import { environment } from 'src/environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import * as fromViewFilms from './store/films.reducer';
-import * as fromAuth from '../auth/store/auth.reducer';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule,
+    SharedModule,
     ViewFilmsRoutingModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -44,6 +38,6 @@ import * as fromAuth from '../auth/store/auth.reducer';
     ViewfilmsItemComponent,
     ViewfilmsDetailComponent,
   ],
-  providers: [DatePipe],
+  providers: [],
 })
 export class ViewfilmsModule {}

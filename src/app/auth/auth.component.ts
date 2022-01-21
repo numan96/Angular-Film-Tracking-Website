@@ -11,30 +11,29 @@ import * as authActions from './store/auth.actions';
   styleUrls: ['./auth.component.sass'],
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  authForm = new FormGroup({
+  public authForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
-  isLoading = false;
-  isLoginMode = true;
-  error: string = null;
-  private closeSub: Subscription;
-  private storeSub: Subscription;
+  public isLoading = false;
+  public isLoginMode = true;
+  public error: string = null;
+  private _storeSub: Subscription;
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private _store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
-    this.storeSub = this.store.select('auth').subscribe((authState) => {
+    this._storeSub = this._store.select('auth').subscribe((authState) => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
     });
   }
 
-  onSwitchMode() {
+  public onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (!this.authForm.valid) {
       return;
     }
@@ -42,11 +41,11 @@ export class AuthComponent implements OnInit, OnDestroy {
     var password = this.authForm.get('password').value;
 
     if (this.isLoginMode) {
-      this.store.dispatch(
+      this._store.dispatch(
         authActions.LoginStart({ email: email, password: password })
       );
     } else {
-      this.store.dispatch(
+      this._store.dispatch(
         authActions.SignupStart({ email: email, password: password })
       );
     }
@@ -54,17 +53,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.authForm.reset();
   }
 
-  onHandleError() {
-    this.store.dispatch(authActions.ClearError());
-  }
-
   ngOnDestroy() {
-    if (this.closeSub) {
-      this.closeSub.unsubscribe();
-    }
-
-    if (this.storeSub) {
-      this.storeSub.unsubscribe();
+    if (this._storeSub) {
+      this._storeSub.unsubscribe();
     }
   }
 }

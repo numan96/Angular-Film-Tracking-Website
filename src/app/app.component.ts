@@ -10,9 +10,9 @@ import { Store } from '@ngrx/store';
 export class AppComponent implements OnInit {
   title = 'flixible';
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private _store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(authActions.AutoLogin());
+    this._store.dispatch(authActions.AutoLogin());
   }
 }

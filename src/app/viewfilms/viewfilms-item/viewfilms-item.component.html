@@ -1,74 +1,140 @@
-<!-- <a style="cursor: pointer;"
-class="list-group-item clearfix"
-[routerLink]="[index]"
-routerLinkActive="active"
-> -->
 <div class="container">
-
   <div class="row">
-
-
     <div class="column">
+      <mat-card
+        class="example-card"
+        *ngIf="!filmItem.poster_path.includes('null')"
+      >
+        <mat-card-actions align="start">
+          <div
+            style="display: inline"
+            *ngFor="let favouriteId of favouritesList | keyvalue"
+          >
+            <div
+              style="display: inline"
+              *ngFor="let favouriteName of favouriteId.value | keyvalue"
+            >
+              <ng-container
+                *ngIf="favouriteName.key === filmItem.original_title"
+              >
+                <button
+                  mat-icon-button
+                  *ngIf="isLoggedIn"
+                  matTooltipClass="tooltip-fav"
+                  (click)="onFavourite(favouriteName.value)"
+                  matTooltip="{{
+                    favouriteName.value
+                      ? 'Remove from Favourites'
+                      : 'Add to Favourites'
+                  }}"
+                  matTooltipPosition="above"
+                  aria-label="Button that shows favourites text"
+                >
+                  <mat-icon>{{
+                    favouriteName.value ? "favorite" : "favorite_border"
+                  }}</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </div>
 
+          <div
+            style="display: inline"
+            *ngFor="let watchedId of watchedList | keyvalue"
+          >
+            <div
+              style="display: inline"
+              *ngFor="let watchedName of watchedId.value | keyvalue"
+            >
+              <ng-container *ngIf="watchedName.key === filmItem.original_title">
+                <button
+                  mat-icon-button
+                  *ngIf="isLoggedIn"
+                  matTooltipClass="tooltip-fav"
+                  (click)="onWatched(watchedName.value)"
+                  matTooltip="{{
+                    watchedName.value === 'false'
+                      ? 'Add to Watched'
+                      : 'Remove from Watched'
+                  }}"
+                  matTooltipPosition="above"
+                  aria-label="Button that shows watched text"
+                >
+                  <mat-icon>{{
+                    watchedName.value === "false"
+                      ? "playlist_add"
+                      : "playlist_add_check"
+                  }}</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </div>
 
+          <button
+            mat-icon-button
+            class="navigate"
+            [routerLink]="[index]"
+            matTooltipClass="tooltip-fav"
+            matTooltip="Go to Details"
+            matTooltipPosition="above"
+            aria-label="Button that shows details text"
+          >
+            <mat-icon>navigate_next</mat-icon>
+          </button>
 
-<mat-card class="example-card" *ngIf="!filmItem.poster_path.includes('null')">
-   <mat-card-actions align="start">
+          <mat-card-header>
+            <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
+            <mat-card-subtitle>{{
+              filmItem.release_date | date: "longDate"
+            }}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card-actions>
 
-<!-- snackbar when adding to fav/watch lsit -->
-<div style="display: inline;" *ngFor="let favouriteId of favouritesList | keyvalue">
-  <div style="display: inline;" *ngFor="let favouriteName of favouriteId.value | keyvalue">
+        <img
+          mat-card-image
+          [src]="filmItem.poster_path"
+          alt="Poster for {{ filmItem.original_title }}"
+        />
 
-
-    <ng-container *ngIf="favouriteName.key === filmItem.original_title">
-      <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onFavourite(favouriteName.value)" matTooltip="{{favouriteName.value ? 'Remove from Favourites' : 'Add to Favourites'}}"  matTooltipPosition="above" aria-label="Button that shows favourites text">
-       <mat-icon>{{favouriteName.value ? 'favorite' : 'favorite_border'}}</mat-icon></button>
-     </ng-container>
-
-</div>
-</div>
-
-<div style="display: inline;" *ngFor="let watchedId of watchedList | keyvalue">
-  <div style="display: inline;" *ngFor="let watchedName of watchedId.value | keyvalue">
-
-
-    <ng-container *ngIf="watchedName.key === filmItem.original_title">
-      <button mat-icon-button *ngIf="isLoggedIn" matTooltipClass="tooltip-fav" (click)="onWatched(watchedName.value)" matTooltip="{{watchedName.value === 'false' ? 'Add from Watched' : 'Remove from Watched'}}"  matTooltipPosition="above" aria-label="Button that shows watched text">
-       <mat-icon>{{watchedName.value === 'false' ? 'playlist_add' : 'playlist_add_check'}}</mat-icon></button>
-
-      </ng-container>
-
-</div>
-</div>
-
-   <button mat-icon-button class="navigate" [routerLink]="[index]" matTooltipClass="tooltip-fav" matTooltip="Go to Details" matTooltipPosition="above" aria-label="Button that shows details text"><mat-icon>navigate_next</mat-icon></button>
-
-    <mat-card-header>
-    <mat-card-title>{{ filmItem.original_title }}</mat-card-title>
-    <mat-card-subtitle>{{ filmItem.release_date | date: 'longDate'}}</mat-card-subtitle>
-</mat-card-header>
-
-  </mat-card-actions>
-
-  <img mat-card-image [src]="filmItem.poster_path" alt="Poster for {{filmItem.original_title}}">
-
-  <mat-card-content>
-    <p class="ratingText">Rating</p>
-<p>
-      <mat-progress-spinner class="over69" *ngIf="filmItem.vote_average > 69"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-      <mat-progress-spinner class="under70" *ngIf="filmItem.vote_average > 41 && filmItem.vote_average < 70"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-      <mat-progress-spinner class="below41" *ngIf="filmItem.vote_average < 41 && filmItem.vote_average > 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-      <mat-progress-spinner class="below41" *ngIf="filmItem.vote_average === 0"  strokeWidth="10" mode="determinate" diameter="40" value="{{filmItem.vote_average}}"></mat-progress-spinner>
-    </p>
-<p class="ratingText">{{filmItem.vote_average}}%</p>
-
-
-
-  </mat-card-content>
-
-</mat-card>
-
-</div>
-
-</div>
+        <mat-card-content>
+          <p class="ratingText">Rating</p>
+          <p>
+            <mat-progress-spinner
+              class="over69"
+              *ngIf="filmItem.vote_average > 69"
+              strokeWidth="10"
+              mode="determinate"
+              diameter="40"
+              value="{{ filmItem.vote_average }}"
+            ></mat-progress-spinner>
+            <mat-progress-spinner
+              class="under70"
+              *ngIf="filmItem.vote_average > 41 && filmItem.vote_average < 70"
+              strokeWidth="10"
+              mode="determinate"
+              diameter="40"
+              value="{{ filmItem.vote_average }}"
+            ></mat-progress-spinner>
+            <mat-progress-spinner
+              class="below41"
+              *ngIf="filmItem.vote_average < 41 && filmItem.vote_average > 0"
+              strokeWidth="10"
+              mode="determinate"
+              diameter="40"
+              value="{{ filmItem.vote_average }}"
+            ></mat-progress-spinner>
+            <mat-progress-spinner
+              class="below41"
+              *ngIf="filmItem.vote_average === 0"
+              strokeWidth="10"
+              mode="determinate"
+              diameter="40"
+              value="{{ filmItem.vote_average }}"
+            ></mat-progress-spinner>
+          </p>
+          <p class="ratingText">{{ filmItem.vote_average }}%</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

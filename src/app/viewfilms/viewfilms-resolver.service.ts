@@ -15,20 +15,20 @@ import * as FilmsActions from './store/films.actions';
 @Injectable({ providedIn: 'root' })
 export class ViewFilmsResolverService implements Resolve<{ films: Films[] }> {
   constructor(
-    private store: Store<fromApp.AppState>,
-    private actions$: Actions
+    private _store: Store<fromApp.AppState>,
+    private _actions$: Actions
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.store.select('films').pipe(
+    return this._store.select('films').pipe(
       take(1),
       map((filmState) => {
         return filmState.films;
       }),
       switchMap((films) => {
         if (films.length === 0) {
-          this.store.dispatch(FilmsActions.FetchPopularFilms());
-          return this.actions$.pipe(ofType(FilmsActions.SetFilms), take(1));
+          this._store.dispatch(FilmsActions.FetchPopularFilms());
+          return this._actions$.pipe(ofType(FilmsActions.SetFilms), take(1));
         } else {
           return of({ films });
         }

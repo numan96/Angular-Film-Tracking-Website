@@ -2,14 +2,27 @@
   <form>
     <mat-form-field appearance="fill">
       <mat-label>Search for a Film</mat-label>
-      <input matInput id="filmName" [matAutocomplete]="auto" type="search" [formControl]="filmName"
-      (keyup)="onKey(filmName.value)">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="100%">
-        <!-- maybe change panelwidth on mobile to 100% (full screen width) -->
-        <mat-option *ngFor="let option of films " [value]="option.original_title" (click)="toFilm(option.id)">
-         <img class="option-img" [src]="option.poster_path" height="40">
+      <input
+        matInput
+        id="filmName"
+        [matAutocomplete]="auto"
+        type="search"
+        [formControl]="filmName"
+        (keyup)="onKey(filmName.value)"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto="matAutocomplete"
+        panelWidth="100%"
+      >
+        <mat-option
+          *ngFor="let option of films"
+          [value]="option.original_title"
+          (click)="toFilm(option.id)"
+        >
+          <img class="option-img" [src]="option.poster_path" height="40" />
 
-         <span>{{option.original_title}}</span>
+          <span>{{ option.original_title }}</span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

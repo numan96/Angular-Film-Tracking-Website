@@ -28,6 +28,7 @@ const routes: Routes = [
     component: WatchedListComponent,
     canActivate: [AuthGuard],
   },
+  { path: '**', redirectTo: 'films' },
 ];
 
 @NgModule({

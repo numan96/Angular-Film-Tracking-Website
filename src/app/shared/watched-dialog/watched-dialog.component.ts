@@ -3,8 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as FilmsActions from '../../viewfilms/store/films.actions';
-import { DatePipe } from '@angular/common';
-import { map } from 'rxjs';
+
 @Component({
   selector: 'app-watched-dialog',
   templateUrl: './watched-dialog.component.html',
@@ -20,15 +19,17 @@ export class WatchedDialogComponent implements OnInit {
       filmName: string;
       watched: 'false';
     },
-    private store: Store<fromApp.AppState>
+    private _store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit() {}
-  onNoClick() {
+
+  public onNoClick() {
     this.dialogRef.close();
   }
-  onSubmit() {
-    this.store.dispatch(
+
+  public onSubmit() {
+    this._store.dispatch(
       FilmsActions.setAsWatched({
         filmId: this.data.filmId,
         filmName: this.data.filmName,

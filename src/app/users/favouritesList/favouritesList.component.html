@@ -1,36 +1,30 @@
-
-
 <h1 class="title">My Favourites</h1>
 <div class="body">
-<div *ngFor="let favouriteId of favouritesList | keyvalue">
+  <div *ngFor="let favouriteId of favouritesList | keyvalue">
+    <div *ngFor="let favouriteName of favouriteId.value | keyvalue">
+      <div *ngIf="favouriteName.value === true">
+        <mat-card class="example-card">
+          <p>
+            {{ favouriteName.key }}
+          </p>
 
+          <button
+            mat-button
+            class="navDelete"
+            (click)="onDelete(favouriteId.key, favouriteName.key)"
+          >
+            Delete
+          </button>
 
-<div *ngFor="let favouriteName of favouriteId.value | keyvalue">
-
-<div *ngIf="favouriteName.value === true" >
-
-<mat-card class="example-card">
-
-
-
-<p >
-
-  {{ favouriteName.key}}
-</p>
-
-<button mat-button class="navDelete" (click)="onDelete(favouriteId.key, favouriteName.key)">Delete</button>
-
-<button mat-button class="nav"routerLink="../films/{{favouriteId.key}}">View</button>
-
-
-
-</mat-card>
-
-</div>
-
-
-</div>
-
-</div>
-
+          <button
+            mat-button
+            class="nav"
+            routerLink="../films/{{ favouriteId.key }}"
+          >
+            View
+          </button>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
-
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild([{ path: '', component: AuthComponent }]),
     ReactiveFormsModule,
     MatInputModule,

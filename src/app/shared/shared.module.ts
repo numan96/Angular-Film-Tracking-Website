@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
@@ -34,6 +35,8 @@ import { MatInputModule } from '@angular/material/input';
     SearchComponent,
   ],
   exports: [
+    DatePipe,
+    CommonModule,
     FooterComponent,
     LoadingSpinnerComponent,
     NavComponent,

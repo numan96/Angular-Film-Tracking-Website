@@ -9,14 +9,14 @@ import * as FilmsActions from '../../viewfilms/store/films.actions';
   styleUrls: ['./watchedList.component.sass'],
 })
 export class WatchedListComponent implements OnInit {
-  watchedList;
-  constructor(private store: Store<fromApp.AppState>) {}
+  public watchedList;
+  constructor(private _store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(FilmsActions.fetchUsersWatched());
+    this._store.dispatch(FilmsActions.fetchUsersWatched());
 
     concat(
-      this.store
+      this._store
         .select('films')
         .pipe(map((filmState) => filmState.watchedList))
         .pipe(
@@ -27,8 +27,8 @@ export class WatchedListComponent implements OnInit {
     ).subscribe();
   }
 
-  onDelete(filmId, filmName) {
-    this.store.dispatch(
+  public onDelete(filmId, filmName: string) {
+    this._store.dispatch(
       FilmsActions.RemoveWatchedFromList({
         filmId: filmId,
         filmName: filmName,

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Films } from '../films.model';
 import * as fromApp from 'src/app/store/app.reducer';
 import { Store } from '@ngrx/store';
-import { concat, map, Subscription } from 'rxjs';
+import { concat, map } from 'rxjs';
 import * as FilmsActions from '../store/films.actions';
 import { DatePipe } from '@angular/common';
 @Component({
@@ -13,23 +13,19 @@ import { DatePipe } from '@angular/common';
 export class ViewfilmsItemComponent implements OnInit {
   @Input('filmItemArray') filmItem: Films;
   @Input() index: number;
-  isLoggedIn = false;
-  private userSub: Subscription;
-  private favouriteSub: Subscription;
-  favourited = false;
-  watched = false;
-  favouritesList;
-  watchedList;
-  id: number;
-  isButtonVisible = true;
+  public isLoggedIn = false;
+  public favourited = false;
+  public watched = false;
+  public favouritesList;
+  public watchedList;
 
   constructor(
-    private store: Store<fromApp.AppState>,
-    public datepipe: DatePipe
+    private _store: Store<fromApp.AppState>,
+    private _datepipe: DatePipe
   ) {}
 
   ngOnInit() {
-    this.userSub = this.store
+    this._store
       .select('auth')
       .pipe(map((authState) => authState.user))
       .subscribe((user) => {
@@ -37,7 +33,7 @@ export class ViewfilmsItemComponent implements OnInit {
       });
 
     concat(
-      this.store
+      this._store
         .select('films')
         .pipe(map((filmState) => filmState.favouriteList))
         .pipe(
@@ -48,7 +44,7 @@ export class ViewfilmsItemComponent implements OnInit {
     ).subscribe();
 
     concat(
-      this.store
+      this._store
         .select('films')
         .pipe(map((filmState) => filmState.watchedList))
         .pipe(
@@ -58,12 +54,12 @@ export class ViewfilmsItemComponent implements OnInit {
         )
     ).subscribe();
   }
-  onFavourite(favourite: boolean) {
+
+  public onFavourite(favourite: boolean) {
     const id = this.filmItem.id;
     favourite = !favourite;
-    console.log(favourite);
     const filmName = this.filmItem.original_title;
-    this.store.dispatch(
+    this._store.dispatch(
       FilmsActions.RemoveFavouriteFromList({
         filmId: id,
         filmName: filmName,
@@ -72,15 +68,15 @@ export class ViewfilmsItemComponent implements OnInit {
     );
   }
 
-  onWatched(watched: string) {
+  public onWatched(watched: string) {
     const id = this.filmItem.id;
     const filmName = this.filmItem.original_title;
 
     if (watched === 'false') {
       const watchedVar = new Date();
-      const watched1 = this.datepipe.transform(watchedVar, 'yyyy-MM-dd');
+      const watched1 = this._datepipe.transform(watchedVar, 'yyyy-MM-dd');
 
-      this.store.dispatch(
+      this._store.dispatch(
         FilmsActions.RemoveWatchedFromList({
           filmId: id,
           filmName: filmName,
@@ -88,7 +84,7 @@ export class ViewfilmsItemComponent implements OnInit {
         })
       );
     } else {
-      this.store.dispatch(
+      this._store.dispatch(
         FilmsActions.RemoveWatchedFromList({
           filmId: id,
           filmName: filmName,

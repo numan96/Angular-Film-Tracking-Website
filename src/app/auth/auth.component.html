@@ -1,33 +1,50 @@
 <div class="authDiv">
   <div class="column">
+    <div *ngIf="isLoading" style="text-align: center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
 
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="numan@example.co.uk"
+            type="email"
+            formControlName="email"
+            required
+          />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </p>
 
-    <div *ngIf="isLoading" style="text-align: center;">
- <app-loading-spinner></app-loading-spinner>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-error>{{ error }}</mat-error>
+        <button
+          mat-button
+          class="formBtn"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? "Login" : "Sign Up" }}
+        </button>
+        <button
+          mat-button
+          class="formBtn"
+          (click)="onSwitchMode()"
+          type="button"
+        >
+          Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+        </button>
+      </p>
+    </form>
   </div>
-
-<form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-<p>
-  <mat-form-field appearance="outline">
-  <mat-label>Email</mat-label>
- <input matInput placeholder="numan@example.co.uk" type="email" formControlName="email" required>
-<mat-error></mat-error>
-  </mat-form-field>
-</p>
-
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Password</mat-label>
-   <input matInput type="password" formControlName="password" required>
-
-    </mat-form-field>
-</p>
-
-<p>
-<mat-error>{{error}}</mat-error>
-<button mat-button class="formBtn" type="submit" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up'}}</button>
-<button mat-button class="formBtn" (click)="onSwitchMode()" type="button">Switch to {{ isLoginMode ? 'Sign Up' : 'Login'}}</button>
-</form>
 </div>
-</div>
-

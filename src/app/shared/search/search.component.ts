@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
+import { map } from 'rxjs';
 import { Films } from 'src/app/viewfilms/films.model';
 import * as fromApp from '../../store/app.reducer';
 import * as FilmsActions from '../../viewfilms/store/films.actions';
@@ -12,13 +12,15 @@ import * as FilmsActions from '../../viewfilms/store/films.actions';
   styleUrls: ['./search.component.sass'],
 })
 export class SearchComponent implements OnInit {
-  filmName = new FormControl('');
-  films: Films[];
-  subscription: Subscription;
-  constructor(private store: Store<fromApp.AppState>, private router: Router) {}
+  public filmName = new FormControl('');
+  public films: Films[];
+  constructor(
+    private _store: Store<fromApp.AppState>,
+    private _router: Router
+  ) {}
 
   ngOnInit() {
-    this.subscription = this.store
+    this._store
       .select('films')
       .pipe(map((filmsState) => filmsState.searchFilms))
       .subscribe((films: Films[]) => {
@@ -26,19 +28,19 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  onKey(filmName: string) {
+  public onKey(filmName: string) {
     if (filmName.length > 0) {
-      this.store.dispatch(FilmsActions.SearchFilms({ filmName }));
+      this._store.dispatch(FilmsActions.SearchFilms({ filmName }));
     }
   }
 
-  toFilm(id: any) {
+  public toFilm(id: any) {
     let url = 'films/' + id;
-    if (this.router.url != '/films') {
-      this.store.dispatch(FilmsActions.FetchSingleFilm({ id: id }));
-      this.router.navigateByUrl(url);
+    if (this._router.url != '/films') {
+      this._store.dispatch(FilmsActions.FetchSingleFilm({ id: id }));
+      this._router.navigateByUrl(url);
     } else {
-      this.router.navigateByUrl(url);
+      this._router.navigateByUrl(url);
     }
 
     this.filmName.setValue('');
