@@ -1,6 +1,34 @@
 # Flixible
 
+This Angular website was created with Angular 13, TypeScript, NgRx, Angular Material, SASS and Firebase.
+
+API Used: `https://www.themoviedb.org/`
+
+## Live Website
+
+`https://ng-flixible.web.app/films`
+
+## Test Login Details
+
+Username: test@test.com 
+
+Password: test123
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+
+## Features List
+
+**Authentication System** - Firebase Sign Up/Sign In. Logout in Navbar -> Logout.
+
+**View Films (Homepage)** - View list of the latest films, different categories such as Most Popular, Now Playing and Top Rated. Films can be favourited or set as Watched here by clicking the 'Heart' or 'List' icon corresponding to favourite/watched on the specific films card. User can go to the Films details page if they click the Arrow highlighted icon on each Film cards header.
+
+**Favourites List (User Icon in Navbar -> My Lists -> Favourites)** - List of an authenticated users favourite films. Users may remove the film as favourited here or go to the film details page for the specific film.
+
+**Watched List (User Icon in Navbar -> My Lists -> Watched)** - List of an authenticated users watched films, which provides a date when the user selected it as watched (Films can be set as watched by clicking the 'List' icon on the right of the 'Heart' icon, either on the homepage or the films details page). Users may remove the film as watched here or go to the film details page for the specific film.
+
+**Search Bar (in Navbar)** - Users can search any film in The Movie DB API, clicking the film in the search bar will take the user to the films Details page. 
+
+**Film Details (Click Arrow icon inside Film card on Homepage)** - A page with all the information about the selected film including the cast, trailers from YouTube, runtime and the Films rating. The user can set as favourite/watched or remove as favourite/watched here. If the user has set as watched or favourite, this will be shown (either with a white heart or a tick icon for watched, with the date this was selected as watched by the user).
 
 ## Development server
 
